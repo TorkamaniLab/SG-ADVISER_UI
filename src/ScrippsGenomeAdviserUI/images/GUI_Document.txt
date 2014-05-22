@@ -1,0 +1,77 @@
+Scripps Genome Adviser GUI is a visualization tool built to help researchers view and analyze SG Adviser output data.
+
+The tool allows you to:
+
+1. Visualize big files (1GB+);
+2. View the file contents by pressing on next/previous pages at the bottom of the   page;
+3. Sort the entire file by a selected column;
+4. Simple filter - filter by any criteria any column of the file;
+5. 12 custom filter:
+	a. Coding variants – filters all possible values of the “Coding Impact” column except Synonymous values;
+	b. Coding & splice variants - all possible values of “Coding Impact” and “Splice Site Pred” (except synonymous values);
+	c. Known Disease – Causing Variants – “1” values of the ACMG-Score columns;
+	d. Clinical Known and Predicted Disease Causing Variants - all entries in the column “ACMG Score Clinical/Disease Entry/Explanation”;
+	e. Research Known and predicted Disease Causing Variants - all entries in the column “ACMG Score Research/Disease Entry/Explanation”;
+	f. Cancer Genes – all entries that are not null from either columns “COSMIC Variant”, “COSMIC Gene”, “Sanger Cancer Gene”, 
+		“Sanger Germline Cancer Genes” or “Sanger network-informed Cancer Genes”;
+    g. Pharmacogenetic – all not null value in PharmKGB column;
+	h. Truncating Variants – all Frameshift and Nonsence variants;
+	i. Coding and Splice Variants with Frequency - all possible values of “Coding Impact” and “Splice Site Pred” (except synonymous values)
+	   that have frequency in the columns “1000Genomes”, “GC_69” and “GC_Wellderly” lower than the chosen frequency;
+	j. Non dbSNP Coding and Splice Variants with Frequency -  entries without a dbSNP ID but with all possible values in “Coding Impact”
+	   and “Splice Site Pred” columns (except synonymous values) that have frequency in the columns “1000Genomes”, “GC_69” and “GC_Wellderly” lower than the chosen frequency;
+	k. Chromosome position – choose all entries on any selected chromosome, that are located between the entered start and end position;
+6. Advance filter - filter any 3 columns with any entered filter data (AND option);
+7. Save to file – saves the current view (sort/filter) to a selected file;
+8. Comment column – insert any comment in the last column of the view, the comment will be saved if the file is saved;
+9. When you apply a filter to data it only shows the filtered data, you can further filter this data, but if you want to do a 
+   brand new filter you need to undo (Undo -> Original Data or press |<) to gain access to the original data. 
+   Also the "|< << >> >|" on the side of menu bar will take you through the filtered arrays;
+10. Load and compare VCF - gives you the ability to load the VCF file, the VCF file is then compared to the pipeline input file, 
+   if it comes from the same data set the Imported Genotype column is filled up with data from the VCF file;
+11. Tooltips – if you let the cursor hover above any menu item it will explain its functionality in a few words;
+
+
+
+Example usage:
+1. Double click on the Sg_Adviser.jar;
+2. Go to File -> Open and select the file you want to analyze;
+3. Press on Next Page to view the file contents (to save time at loading only 500 lines are shown per view, 
+   you can look at the first few pages while the entire file is being loaded in memory); 
+4. Be patient till the progress bar shows that the entire file is loaded in memory before you proceed with any sorting of filtering;
+5. Sort file by a column of interest. Ex: Gene or ACMG Score;
+6. Use the custom filters by looking at Known and Predicted Disease – Causing Variants;
+7. Find out the variants in Cancer Genes from the Known and Predicted Disease Causing Variants by selecting the Cancer Genes filter;
+8. Remember that each consecutive filter is filtering the current filter data; in order to filter the entire file you have to 
+   click on Undo -> Original data or click |<;
+9. If the filter result is bigger than 1000 entries you can see the next pages by clicking on Next Page or go back by clicking
+   on Previous Page at the bottom of the view;
+10.	If you want to find only variants that are entries in PharmGKB database and drug whose metabolism is perturbed you can use 
+	the Pharmacogenetic filter;
+11.	To select only entries on a specific chromosome/position choose Chromosome Position filter;
+12.	To filter the variants from a single gene, in the filter bar select column “Gene”in enter the gene name. Ex: TP 53;
+13.	Add comments in the comments column;
+14.	Save results to file;
+15.	Go back to Original Data;
+16.	Use custom filter and filter by any 3 criteria;
+17.	Go on genomics.scripps.edu/Adviser/Result_desc.jsp to read about the description of each column;
+18.	Contact us on the forum at genomics.scripps.edu/forum/ for questions or help. Or email gerikson@scripps.edu for questions 
+	directly related to the GUI.
+
+Troubleshooting:
+
+	If you are loading a bigger file (1GB+) you need to change the heap size (not forever, just for as long as the application runs, 
+	I promise it won't burn your computer) I'm working on changing the heap size at runtime but for the time being you need to type from terminal/cmd:
+	java -Xms1g -Xmx10g -jar "path to jar file" ; example of path to jar file was: /Users/gerikson/desktop/dist/SG-Adviser_1.2_2.jar.
+
+    If SG Adviser GUI will not start, I see error messages about "class" or "loading".
+	If you're using a Windows machine, Internet explorer may be "helpful" and rename the .jar file as .zip. This is bad. Either use Firefox to "Save As" the file (making sure it is not changing the filetype) or rename the file. To rename the file in Windows correctly, you either must be showing file extensions, or you have to use the "ren" command on the command prompt.
+	
+Check back for future functionalities:
+	Advance filter on more then 3 criteria with (“&” and “||” options and the combination on both);
+	Options menu or you can choose how many lines you wish to be displayed in a view;
+	Ability to click on a row and to see the sub-values in each column to extend in new rows;
+
+Questions, comments, suggestions will be greatly appreciated. Please contact Galina Erikson at gerikson@scripps.edu
+
+Thank you for using SG Adviser!
