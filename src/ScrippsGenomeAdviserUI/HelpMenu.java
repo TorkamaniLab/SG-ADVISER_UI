@@ -61,7 +61,7 @@ public class HelpMenu extends javax.swing.JFrame {
         		"\n2. Go to File -> Open and select the file you want to analyze;\n3. Press on Next Page to view the file contents (to save time at loading only " +
         		"500 lines are shown per view, \nyou can look at the first few pages while the entire file is being loaded in memory); \n4. Be patient till the " +
         		"progress bar shows that the entire file is loaded in memory before you proceed with any sorting of filtering;\n5. Sort file by a column of " +
-        		"interest. Ex: Gene or ACMG Score;\n6. Use the custom filters by looking at Known and Predicted Disease Causing Variants;\n7. Find out the " +
+        		"interest. Ex: Gene or ADVISER Score;\n6. Use the custom filters by looking at Known and Predicted Disease Causing Variants;\n7. Find out the " +
         		"variants in Cancer Genes from the Known and Predicted Disease Causing Variants by selecting the Cancer Genes filter;\n8. Remember that " +
         		"each consecutive filter is filtering the current filter data; in order to filter the entire file you have to click on Undo -> Original data or click " +
         		"|<;\n9. If the filter result is bigger than 1000 entries you can see the next pages by clicking on Next Page or go back by clicking on Previous " +
@@ -70,7 +70,7 @@ public class HelpMenu extends javax.swing.JFrame {
         		"Position filter;\n12. To filter the variants from a single gene, in the filter bar select column Gene and enter the gene name. Ex: TP 53;\n13. " +
         		"Add comments in the comments column;\n14. Save results to file;\n15. Go back to Original Data;\n16. Use custom filter and filter by any 3 " +
         		"criteria;\n17. Go on genomics.scripps.edu/Adviser/Result_desc.jsp to read about the description of each column;\n\nQuestions, " +
-        		"comments, suggestions will be greatly appreciated. Please contact Galina Erikson at gerikson@scripps.edu\n\nThank you for using " +
+        		"comments, suggestions will be greatly appreciated, please contact Galina Erikson at gerikson@scripps.edu\n\nThank you for using " +
         		"SG Adviser!\n");
         
         jTextArea1.setName("Help Menu"); // NOI18N

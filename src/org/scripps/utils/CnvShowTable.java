@@ -1182,7 +1182,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		JMenuItem previousFilter = new JMenuItem("Previous step");
 		JMenuItem stats = new JMenuItem("Statistics");
 		JMenuItem helpMe = new JMenuItem("Help");
-		JMenuItem geneList = new JMenuItem("Gene list filter"); 
+		//JMenuItem geneList = new JMenuItem("Gene list filter"); 
 		predictedDisease.add(predClinical);
 		predictedDisease.add(predResearch);
 
@@ -1203,7 +1203,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		chromPos.setToolTipText("All variants within a user defined region.");
 		validValueFilter
 				.setToolTipText("All variants that have valid values in a specific column except '-' and 'N/A'");
-		geneList.setToolTipText("Filters the variants present in a provided list of genes.");
+		//geneList.setToolTipText("Filters the variants present in a provided list of genes.");
 
 		filters.add(codingVar);
 		filters.add(codingVarFreq);
@@ -1214,7 +1214,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		filters.add(truncatedVariants);
 		filters.add(chromPos);
 		filters.add(validValueFilter);
-		filters.add(geneList);
+		//filters.add(geneList);
 		statistics.add(stats);
 		UndoData.add(previousFilter);
 		UndoData.add(undo);
@@ -1573,6 +1573,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 			}
 		});
 
+		/*
 		geneList.addActionListener(new java.awt.event.ActionListener()
 		{
 			@Override
@@ -1597,14 +1598,9 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 
 			}
 		});
+		*/
 
-		// open.addActionListener(new java.awt.event.ActionListener() {
-		// @Override
-		// public void actionPerformed(java.awt.event.ActionEvent evt) {
-		// OpenActionPerformed(evt);
-		// }
-		// });
-		// if (ReadFile.status == true) {
+
 		sort.addActionListener(new java.awt.event.ActionListener()
 		{
 			@Override

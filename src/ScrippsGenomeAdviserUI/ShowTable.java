@@ -138,8 +138,6 @@ public class ShowTable extends javax.swing.JFrame implements Runnable {
      
     //jframe resize 
     private static boolean componentShown = false;
-  //  public static int frameHeight = 537;
-  //  public static int frameWidth = 939;
     public static int frameHeight = 737;
     public static int frameWidth = 1139;
      
@@ -290,25 +288,6 @@ public static void into2DArrayFilterData (ArrayList<ScrippsGenomeAdviserUI.Reade
         
         table.getTableHeader().setToolTipText(
         "Click to sort; Shift-Click to sort in reverse order");
-        // table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-         
-         //make the columns wider if it's a vcf file
-         // Not necessary, we don't accept vcf files anymore
-     /*   if (Interface.vcfStatus == true) {
-            // Disable auto resizing
-         //   table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-            // Set the first visible column to 100 pixels wide
-            int vColIndex = 8;
-            TableColumn col = table.getColumnModel().getColumn(vColIndex);
-            int width = 150;
-            int vColIndex2 = 9;
-            TableColumn col2 = table.getColumnModel().getColumn(vColIndex2);
-            col.setPreferredWidth(width);
-            col2.setPreferredWidth(width);
-        } */
-
-         final ShowTable demo = new ShowTable();
        
         // Disable autoCreateColumnsFromModel otherwise all the column customizations
         // and adjustments will be lost when the model data is sorted
@@ -504,8 +483,7 @@ public static void into2DArrayFilterData (ArrayList<ScrippsGenomeAdviserUI.Reade
                  threadExecutor.shutdown(); 
                         } else {
                     threadExecutor.shutdownNow();
-          //          heapSortAlgorithm.frame.dispose();
-          //          heapSortAlgorithm.ArrayforSort = null;
+
                     FilteredArray = new ArrayList<ScrippsGenomeAdviserUI.Reader>();
                     FilterFunctions rf2 = new FilterFunctions(sortSelection);
                     threadExecutor = Executors.newFixedThreadPool(1);
@@ -965,33 +943,21 @@ public static JMenuBar createMenuBar() {
       JMenu UndoData = new JMenu("Undo"); 
       JMenu statistics = new JMenu("Statistics");
       JMenu save = new JMenu("Save");
-      JMenu print = new JMenu("Print");
       JMenu help =new JMenu("Help");
       
       menubar.add(file);
       
-       // TO DO finish EDIT
-      //   menubar.add(edit);
       menubar.add(data);
       menubar.add(filters);
       menubar.add(save);
       menubar.add(statistics);
-    //  menubar.add(UndoData);
- 
-      //TO DO: finish print
-  //    menubar.add(print);
       menubar.add(help);
       
-   //   JMenuItem open = new JMenuItem("Open");
       JMenuItem exit = new JMenuItem("Exit Application");
-   //   JMenuItem exitFile = new JMenuItem("Close File");
-    //  JMenuItem openNew = new JMenuItem("Upload new file");
       JMenuItem openVCF = new JMenuItem("Load & compare VCF file");
       JMenuItem openCG = new JMenuItem("Load & compare Complete Genomics file");
       JMenuItem sort = new JMenuItem("Sort");
- //     JMenuItem filter = new JMenuItem("Filter");
       JMenuItem advanceFilter = new JMenuItem("Advance filter");
-     // JMenuItem customFilters = new JMenuItem("Custom Filters");
       JMenuItem saveAs = new JMenuItem("Save as...");
       JMenuItem undo =  new  JMenuItem("Original data");
       
@@ -1015,7 +981,7 @@ public static JMenuBar createMenuBar() {
       JMenuItem stats = new JMenuItem("Statistics");
       JMenuItem helpMe = new JMenuItem("Help");
       JMenuItem idiomFilter = new JMenuItem("IDIOM filter");
-      JMenuItem geneList = new JMenuItem("Gene list filter"); 
+     // JMenuItem geneList = new JMenuItem("Gene list filter"); 
       
       predictedDisease.add(predClinical);
       predictedDisease.add(predResearch);
@@ -1034,7 +1000,7 @@ public static JMenuBar createMenuBar() {
       chromPos.setToolTipText("All variants within a user defined region.");
       validValueFilter.setToolTipText("All variants that have valid values in a specific column except '-' and 'N/A'");
       idiomFilter.setToolTipText("All De-novo variants; Homozygous in child only and Compound Heterozygous variants.");
-      geneList.setToolTipText("Filters the variants present in a provided list of genes.");        
+      //geneList.setToolTipText("Filters the variants present in a provided list of genes.");        
               
       filters.add(codingVar);
       filters.add(spliceVar);
@@ -1045,38 +1011,21 @@ public static JMenuBar createMenuBar() {
       filters.add(pharmacogenetic);
       filters.add(truncatedVariants);
       filters.add(nondbSNP);
-    //  filters.add(nondbSNPFreq);
       filters.add(chromPos);
       filters.add(validValueFilter);
       filters.add(idiomFilter);
-      filters.add(geneList);
-   //   filters.add(advanceFilter);
+     // filters.add(geneList);
       statistics.add(stats);
       UndoData.add(previousFilter);
       UndoData.add(undo);
       
       
-      //ustomFilters.add(codingVar);
-   //   file.add(open);
       file.add(exit);
-    //  file.add(exitFile);
-    //  file.add(openNew);
       file.add(openVCF);
       file.add(openCG);
       data.add(sort);
       help.add(helpMe);
-    // data.add(filter);
-   //   data.add(advanceFilter);
-    // data.add(customFilters);
-  //    data.add(undo);
-    //  if (tableStatus > 2) {
       save.add(saveAs);
-    //  }
-
-            
-      
-   //   if (ReadFile.status == true) {
-       
     stats.addActionListener(new java.awt.event.ActionListener() {
           @Override
            public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1463,6 +1412,7 @@ public static JMenuBar createMenuBar() {
             }
     });
      
+     /*
       geneList.addActionListener(new java.awt.event.ActionListener() {
           @Override
            public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1483,14 +1433,8 @@ public static JMenuBar createMenuBar() {
 
             }
     });
-     
-//      open.addActionListener(new java.awt.event.ActionListener() {
-//          @Override
-//           public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                OpenActionPerformed(evt);
-//            }
-//        });
-    //  if (ReadFile.status == true) {
+     */
+
       sort.addActionListener(new java.awt.event.ActionListener() {
           @Override
            public void actionPerformed(java.awt.event.ActionEvent evt) {
