@@ -75,13 +75,12 @@ public class CnvReadFile extends JFrame implements Runnable
 			bReader = new BufferedReader(new FileReader(file));
 
 			long len = file.length();
-			double y = (double) len;
+			double y = len;
 			double ing = 60000000.0;
-			double x = (double) ing / len;
-			double perc = (double) (x * 100);
+			double x = ing / len;
+			double perc = x * 100;
 			String line = null;
 
-			// if (Interface.vcfStatus == false) {
 			try
 			{
 				line = bReader.readLine();
@@ -182,7 +181,7 @@ public class CnvReadFile extends JFrame implements Runnable
 						null, ex);
 			}
 
-			// Trip the array in case if big files are loaded
+			// Trim the array in case if big files are loaded
 			arrayOfLines.trimToSize();
 			progressBar.setValue(100);
 			progressBar.setStringPainted(true);
@@ -196,62 +195,6 @@ public class CnvReadFile extends JFrame implements Runnable
 			CnvFilterFunctions.currentArray = 0;
 			CnvShowTable.tableStatus = 17;
 			this.frame.dispose();
-
-			// }
-
-			// if is a vcf file
-			/*
-			 * else if (Interface.vcfStatus == true) { try { line =
-			 * bReader.readLine(); } catch (IOException ex) {
-			 * Logger.getLogger(CnvReadFile.class.getName()).log(Level.SEVERE,
-			 * null, ex); } // for (int i = 0; i < Interface.vcfCount+2; i++) {
-			 * // //get rid of the first lines // if (line.startsWith("##", 0))
-			 * { // // break; // // } // // else if (line.startsWith("#", 0)) {
-			 * // String l = line.replace("#", ""); // head = new Header(l); //
-			 * break; // } // } try { while((line = bReader.readLine()) != null)
-			 * { if (line.startsWith("##", 0)) {
-			 * 
-			 * continue;
-			 * 
-			 * }
-			 * 
-			 * else if (line.startsWith("#", 0)) { String l = line.replace("#",
-			 * ""); head = new Header(l);
-			 * 
-			 * continue;
-			 * 
-			 * } else {
-			 * 
-			 * datacount++; String nt = Integer.toString(datacount); //adding an
-			 * index nt = datacount + "\t" + line; CnvReader ob1 = new
-			 * CnvReader(nt); arrayOfLines.add(ob1);
-			 * 
-			 * // // /** // * Test function to see how the program works //
-			 */
-			/*
-			 * if (datacount%100000 == 0){
-			 * 
-			 * // Loading.frame.dispose(); System.out.print(datacount + "\t");
-			 * DateFormat dateFormat = new
-			 * SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); Calendar cal =
-			 * Calendar.getInstance();
-			 * System.out.println(dateFormat.format(cal.getTime())); perc2 =
-			 * perc2 + perc; int b = (int) perc2; progressBar.setValue(b);
-			 * progressBar.setStringPainted(true); }
-			 * 
-			 * } } }catch (IOException ex) {
-			 * Logger.getLogger(CnvReadFile.class.getName()).log(Level.SEVERE,
-			 * null, ex); }
-			 * 
-			 * 
-			 * System.out.println("Entire file stored in memory!");
-			 * progressBar.setValue(100); progressBar.setStringPainted(true);
-			 * fileLines = datacount; ShowTable.FileNumberRows = fileLines;
-			 * status = true; this.frame.dispose();
-			 * 
-			 * 
-			 * }
-			 */
 		} catch (FileNotFoundException ex)
 		{
 			Logger.getLogger(CnvReadFile.class.getName()).log(Level.SEVERE,

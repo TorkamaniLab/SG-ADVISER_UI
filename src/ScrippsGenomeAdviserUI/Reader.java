@@ -5,8 +5,6 @@
  */
 package ScrippsGenomeAdviserUI;
 
-import java.io.IOException;
-
 /**
  *
  * @author gerikson

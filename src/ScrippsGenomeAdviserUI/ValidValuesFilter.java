@@ -4,9 +4,6 @@
  */
 package ScrippsGenomeAdviserUI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -82,7 +79,8 @@ public class ValidValuesFilter extends JFrame {
         
         filter.addActionListener(new java.awt.event.ActionListener() {
             
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 
               
         String st = startPos.getText(); 
@@ -212,7 +210,8 @@ public class ValidValuesFilter extends JFrame {
         bindingGroup.addBinding(binding);
 
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
+            @Override
+			public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
         });
@@ -340,7 +339,8 @@ public class ValidValuesFilter extends JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 //new NewJFrame().setVisible(true);
                fr = new ChromPosFilter();
                         fr.setVisible(true);

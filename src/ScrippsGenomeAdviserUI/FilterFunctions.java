@@ -16,8 +16,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -101,7 +99,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -181,7 +179,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -469,7 +467,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -538,7 +536,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculation
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -632,7 +630,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculation
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -759,7 +757,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -867,7 +865,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -968,7 +966,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -1056,7 +1054,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -1174,7 +1172,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -1283,7 +1281,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -1455,7 +1453,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -1558,7 +1556,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -1680,7 +1678,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -1975,7 +1973,7 @@ public class FilterFunctions implements Runnable
 		int end = TempArrayOne.size();
 
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;
@@ -2729,7 +2727,7 @@ public class FilterFunctions implements Runnable
 		// progress bar calculations
 		int lineCount = 0;
 		int linesLeft = end;
-		int threePerc = (int) (linesLeft / 100) * 3;
+		int threePerc = linesLeft / 100 * 3;
 		if (threePerc < 1)
 		{
 			threePerc = 1;

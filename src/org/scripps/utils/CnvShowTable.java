@@ -137,8 +137,6 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 
 	// jframe resize
 	private static boolean componentShown = false;
-	// public static int frameHeight = 537;
-	// public static int frameWidth = 939;
 	public static int frameHeight = 737;
 	public static int frameWidth = 1139;
 
@@ -168,7 +166,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 			{
 				header.add("Comments");
 			}
-			columns = (String[]) header.toArray(new String[header.size()]);
+			columns = header.toArray(new String[header.size()]);
 		}
 
 		String lines;
@@ -360,8 +358,8 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		col.setCellEditor(mt);
 
 		panel.setLayout(new BorderLayout());
-		demo.frame.setJMenuBar(demo.createMenuBar());
-		demo.frame.add(new JScrollPane(table));
+		CnvShowTable.frame.setJMenuBar(CnvShowTable.createMenuBar());
+		CnvShowTable.frame.add(new JScrollPane(table));
 
 		// Insert the column combobox for filter
 		JComboBox column = new JComboBox(columns);
@@ -407,7 +405,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 			tempArray = CnvShowTable.arrayOfArrays
 					.get(CnvFilterFunctions.currentArray);
 			int arrayLenght = tempArray.size();
-			int pag = (int) arrayLenght / 1000;
+			int pag = arrayLenght / 1000;
 			int finalPage;
 			if (pag < 1)
 			{
@@ -628,7 +626,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		toolBar2.add(nextPage);
 		lastPage.setToolTipText("Shows last filtered array");
 		toolBar2.add(lastPage);
-		demo.frame.add(toolBar2, BorderLayout.NORTH);
+		CnvShowTable.frame.add(toolBar2, BorderLayout.NORTH);
 
 		if (onlyPage == 0)
 		{
@@ -722,23 +720,24 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 			onlyPage = 0;
 		}
 
-		demo.frame.add(toolBar, java.awt.BorderLayout.SOUTH);
-		demo.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		demo.frame.pack();
-		demo.frame.setSize(frameWidth, frameHeight);
-		demo.frame.setVisible(true);
-		demo.frame.setTitle(title);
-		demo.frame.setLocationRelativeTo(null);
+		CnvShowTable.frame.add(toolBar, java.awt.BorderLayout.SOUTH);
+		CnvShowTable.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		CnvShowTable.frame.pack();
+		CnvShowTable.frame.setSize(frameWidth, frameHeight);
+		CnvShowTable.frame.setVisible(true);
+		CnvShowTable.frame.setTitle(title);
+		CnvShowTable.frame.setLocationRelativeTo(null);
 		// compenent to determine user resize
-		demo.frame.addComponentListener(new ComponentAdapter()
+		CnvShowTable.frame.addComponentListener(new ComponentAdapter()
 		{
+			@Override
 			public void componentResized(ComponentEvent e)
 			{
 				if (componentShown)
 				{
 					// System.out.println("Component RESIZED");
-					frameHeight = demo.frame.getHeight();
-					frameWidth = demo.frame.getWidth();
+					frameHeight = CnvShowTable.frame.getHeight();
+					frameWidth = CnvShowTable.frame.getWidth();
 					// System.out.println("Frame height is: " +
 					// Integer.toString(frameHeight));
 					// "Frame width is: " +
@@ -746,6 +745,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 				}
 			}
 
+			@Override
 			public void componentShown(ComponentEvent e)
 			{
 				componentShown = true;
@@ -1145,17 +1145,10 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		JMenu help = new JMenu("Help");
 
 		menubar.add(file);
-
-		// TO DO finish EDIT
-		// menubar.add(edit);
 		menubar.add(data);
 		menubar.add(filters);
 		menubar.add(save);
 		menubar.add(statistics);
-		// menubar.add(UndoData);
-
-		// TO DO: finish print
-		// menubar.add(print);
 		menubar.add(help);
 
 		// JMenuItem open = new JMenuItem("Open");
@@ -1199,7 +1192,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 				.setToolTipText("Coding Variants plus a user defined frequency threshold in as observed in the 1000 Genomes and the Scripps Wellderly population.");
 		knownDisease.setToolTipText("'1' values of the ADVISER-Score columns.");
 		predClinical
-				.setToolTipText("All entries in the column 'ADVISER Score Clinical/Disease Entry/Explanation' receiving a modified ACMG categorization of 1, 2, or 2*. See http://genomics.scripps.edu/ADVISER/ACMG.jsp for ACMG scoring criteria.");
+				.setToolTipText("All entries in the column 'ADVISER Score Clinical/Disease Entry/Explanation' receiving a modified ADVISER categorization of 1, 2, or 2*. See http://genomics.scripps.edu/ADVISER/ACMG.jsp for ACMG scoring criteria.");
 		predResearch
 				.setToolTipText("All entries in the column 'ADVISER Score Research/Disease Entry/Explanation' receiving a modified ACMG categorization of 1, 2 and 2*. See http://genomics.scripps.edu/ADVISER/ACMG.jsp for ACMG scoring criteria.");
 		cancerGenes
@@ -1222,29 +1215,14 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		filters.add(chromPos);
 		filters.add(validValueFilter);
 		filters.add(geneList);
-		// filters.add(advanceFilter);
 		statistics.add(stats);
 		UndoData.add(previousFilter);
 		UndoData.add(undo);
-
-		// ustomFilters.add(codingVar);
-		// file.add(open);
 		file.add(exit);
-		// file.add(exitFile);
-		// file.add(openNew);
-		file.add(openCG);
+		//file.add(openCG);
 		data.add(sort);
 		help.add(helpMe);
-		// data.add(filter);
-		// data.add(advanceFilter);
-		// data.add(customFilters);
-		// data.add(undo);
-		// if (tableStatus > 2) {
 		save.add(saveAs);
-		// }
-
-		// if (ReadFile.status == true) {
-
 		stats.addActionListener(new java.awt.event.ActionListener()
 		{
 			@Override
@@ -1262,6 +1240,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 
 		});
 
+		/*
 		openCG.addActionListener(new java.awt.event.ActionListener()
 		{
 			@Override
@@ -1279,7 +1258,8 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 			}
 
 		});
-
+		*/
+		
 		previousFilter.addActionListener(new java.awt.event.ActionListener()
 		{
 			@Override
@@ -1848,13 +1828,6 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		threadExecutor.shutdown();
 	}
 
-	public static void OpenCGActionPerformed(java.awt.event.ActionEvent evt)
-			throws IOException
-	{
-		CnvOpenCG nt = new CnvOpenCG();
-		nt.openFile();
-
-	}
 
 	// filters by 1
 	public static void CodingVarActionPerformed(java.awt.event.ActionEvent evt)
@@ -1876,7 +1849,6 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		threadExecutor.execute(rf2);
 		threadExecutor.shutdown();
 	}
-	
 	
 
 	// Known disease causing variants "1"s only
@@ -2019,7 +1991,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 	{
 		CnvChromPosFilter fr = new CnvChromPosFilter();
 		String[] a = { "", "" };
-		fr.main(a);
+		CnvChromPosFilter.main(a);
 	}
 
 	public static void gList(java.awt.event.ActionEvent evt)

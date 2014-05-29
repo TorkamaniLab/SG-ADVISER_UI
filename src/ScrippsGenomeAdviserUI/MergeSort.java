@@ -80,10 +80,10 @@ public class MergeSort extends JFrame implements Runnable {
         //Counter for parser
         int readCount = 0;
         
-        double y = (double) dataLines;
+        double y = dataLines;
         double ing  = 100000.0;
-        double x = (double) ing/dataLines;
-        double perc = (double) (x*100);
+        double x = ing/dataLines;
+        double perc = x*100;
 
          
         //Extracting the row number to sort by
@@ -178,7 +178,7 @@ public class MergeSort extends JFrame implements Runnable {
             for (int i = 0; i < ac.length(); i++){
             char ch = ac.charAt(i);  
             //here is the trick from char to ASCII
-            int jh = (int) ch;
+            int jh = ch;
             String n1 = Integer.toString(jh); 
             n = n + n1;
             }

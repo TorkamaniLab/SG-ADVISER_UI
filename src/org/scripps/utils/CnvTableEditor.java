@@ -20,6 +20,7 @@ public class CnvTableEditor extends AbstractCellEditor implements
 	// public Object entireArrayID;
 
 	// This method is called when a cell value is edited by the user.
+	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int rowIndex, int vColIndex)
 	{
@@ -57,10 +58,11 @@ public class CnvTableEditor extends AbstractCellEditor implements
 
 	// This method is called when editing is completed.
 	// It must return the new value to be stored in the cell.
+	@Override
 	public Object getCellEditorValue()
 	{
 
-		String t = (String) ((JTextField) component).getText();
+		String t = ((JTextField) component).getText();
 		System.out.println(t);
 
 		String i = (String) FilterID;

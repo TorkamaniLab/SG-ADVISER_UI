@@ -128,7 +128,8 @@ public class IDIOM extends JFrame {
         
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 
                 filterActionPerformed(evt);
             }
@@ -244,7 +245,8 @@ public class IDIOM extends JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
@@ -368,7 +370,8 @@ public class IDIOM extends JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
              //   new IDIOM().setVisible(true);
                         fr = new IDIOM();
                         fr.setVisible(true);

@@ -471,7 +471,7 @@ public class Statistics implements Runnable{
                //progress bar calculations
                int lineCount = 0;
                int linesLeft = end;
-               int threePerc = (int) (linesLeft/100)*3; 
+               int threePerc = linesLeft/100*3; 
                 if (threePerc < 1) {threePerc = 1; }
                SaveProgress pr = new SaveProgress();
 

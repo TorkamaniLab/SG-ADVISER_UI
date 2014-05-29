@@ -2,13 +2,8 @@
  * Interface for the SG_Adviser UI
  * Galina Erikson
  * Research Associate - Translational Science Research Institute
- * Version_1.6_7
- * February 18, 2014
- * Added a different file chooser that would be more native to mac
- * Notifications if the user tries to upload files other then SG_Adviser
- * Notification if the length of the line is not the same as the header
- * Fixed an issue with page count
- * 
+ * Version_1.6_8
+ * May 29, 2014
  */
 
 package org.scripps.cnvViewer;
@@ -40,9 +35,6 @@ import org.scripps.utils.CnvStatistics;
 public class CnvViewerInterface extends javax.swing.JFrame
 {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public JFrame frame;
 	public static javax.swing.JPanel jPanel1;
@@ -438,19 +430,19 @@ public class CnvViewerInterface extends javax.swing.JFrame
 					demo1.frame.setLocationRelativeTo(null);
 					demo1.frame
 							.add(new JLabel(
-									"This is not a SG ADVISER annotated file, please select a correct file! "));
+									"This is not a SG ADVISER CNV annotated file, please select a correct file! "));
 					demo1.frame
 							.add(new JLabel(
 									"                                                                       "));
 					demo1.frame
 							.add(new JLabel(
-									"  Go to http://genomics.scripps.edu/ADVISER/Result_Desc.jsp to see     "));
+									"  Go to http://genomics.scripps.edu/ADVISER/Result_Desc_CNV.jsp to see     "));
 					demo1.frame
 							.add(new JLabel(
 									"                                                                       "));
 					demo1.frame
 							.add(new JLabel(
-									"             example of a SG ADVISER annotated file.                   "));
+									"             example of a SG ADVISER CNV annotated file.                   "));
 					demo1.frame.setVisible(true);
 					
 				}
@@ -756,26 +748,9 @@ public class CnvViewerInterface extends javax.swing.JFrame
 
 	public static void main(String[] args)
 	{
-		// JFrame frame = new JFrame();
-		/* Set the Nimbus look and feel */
-		// <editor-fold defaultstate="collapsed"
-		// desc=" Look and feel setting code (optional) ">
-		/*
-		 * If Nimbus (introduced in Java SE 6) is not available, stay with the
-		 * default look and feel. For details see
-		 * http://download.oracle.com/javase
-		 * /tutorial/uiswing/lookandfeel/plaf.html
-		 */
 
 		try
 		{
-			/*
-			 * Per reviewers request: The file viewer, for selecting files to
-			 * upload, is not the standard one used on a mac and gave no easy
-			 * way to sort files in order to find, for example, a recently
-			 * created file. This was frustrating.
-			 */
-			// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
 			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
 					.getInstalledLookAndFeels())
@@ -790,23 +765,17 @@ public class CnvViewerInterface extends javax.swing.JFrame
 		} catch (ClassNotFoundException ex)
 		{
 			System.out.println("ClassNotFoundException ex");
-			// java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE,
-			// null, ex);
 		} catch (InstantiationException ex)
 		{
 			System.out.println("InstantiationException ex");
-			// java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE,
-			// null, ex);
 		} catch (IllegalAccessException ex)
 		{
 			System.out.println("IllegalAccessException ex");
-			// java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE,
-			// null, ex);
+
 		} catch (javax.swing.UnsupportedLookAndFeelException ex)
 		{
 			System.out.println("UnsupportedLookAndFeelException");
-			// java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE,
-			// null, ex);
+
 		}
 		// </editor-fold>
 
@@ -822,15 +791,8 @@ public class CnvViewerInterface extends javax.swing.JFrame
 	}
 
 	// Variables declaration - do not modify
-	private javax.swing.JMenuItem Exit;
-	private javax.swing.JMenuItem Open;
 	public static javax.swing.JFileChooser fileChooser;
-	private javax.swing.JMenu jMenu4;
-	private javax.swing.JMenu jMenu5;
-	private javax.swing.JMenuBar jMenuBar2;
 	private javax.swing.JLabel jLabel1;
-	private javax.swing.JLabel jLabel2;
-	private javax.swing.JLabel jLabel3;
 	// End of variables declaration
 
 }

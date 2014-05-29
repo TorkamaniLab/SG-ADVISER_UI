@@ -114,6 +114,7 @@ public class CnvFileChooser extends JPanel implements ActionListener
 		add(logScrollPane, BorderLayout.CENTER);
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 
@@ -208,6 +209,7 @@ public class CnvFileChooser extends JPanel implements ActionListener
 		// creating and showing this application's GUI.
 		SwingUtilities.invokeLater(new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				// Turn off metal's use of bold fonts

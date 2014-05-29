@@ -70,10 +70,10 @@ public class ReadFile extends JFrame implements Runnable {
                bReader = new BufferedReader(new FileReader(file));
                     
                long len = file.length();
-                    double y = (double) len;
+                    double y = len;
                     double ing  = 60000000.0;
-                    double x = (double) ing/len;
-                    double perc = (double) (x*100);
+                    double x = ing/len;
+                    double perc = x*100;
                    String line = null;
                    
               //     if (Interface.vcfStatus == false) {

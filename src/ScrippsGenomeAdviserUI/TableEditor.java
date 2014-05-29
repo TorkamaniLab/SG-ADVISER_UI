@@ -17,7 +17,8 @@ public class TableEditor extends AbstractCellEditor implements TableCellEditor {
  //   public Object entireArrayID;
     
     // This method is called when a cell value is edited by the user.
-    public Component getTableCellEditorComponent(JTable table, Object value,
+    @Override
+	public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int rowIndex, int vColIndex) {
         // 'value' is value contained in the cell located at (rowIndex, vColIndex)
         
@@ -47,9 +48,10 @@ public class TableEditor extends AbstractCellEditor implements TableCellEditor {
     }
     // This method is called when editing is completed.
     // It must return the new value to be stored in the cell.
-    public Object getCellEditorValue() {
+    @Override
+	public Object getCellEditorValue() {
         
-        String t = (String) ((JTextField)component).getText();
+        String t = ((JTextField)component).getText();
         System.out.println(t);
         
         

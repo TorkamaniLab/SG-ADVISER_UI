@@ -167,8 +167,7 @@ public Interface() {
     	
     	
     
-public void openFile() {
-    
+public void openFile() {   
     //variable the checks if this is a sg_adviser file
     boolean adviser_file = false;
     fiftyLines = new Interface();
@@ -179,7 +178,7 @@ public void openFile() {
         fileType = checkFileType(file);
         if(fileType.equals("SNP"))
         {
-        	fiftyLines.fileName =  file.getName();
+        		fiftyLines.fileName =  file.getName();
             Long siz = file.getTotalSpace();
             System.out.println("File size is: " + siz);
             System.out.println("SG-Adviser UI_1.6_8");
@@ -188,45 +187,37 @@ public void openFile() {
             BufferedReader bReader;
             try {
                 bReader = new BufferedReader(
-                        new FileReader(file));
-                        
-                        String line = null;
-                        fiftyLines.arrayOfLines = new ArrayList<ScrippsGenomeAdviserUI.Reader>();
-                        for(int i=0;i<1;i++) {  
-                           line = bReader.readLine();
-                           String header = "";
-                           /*
-                            * Check to see if this is a SG-ADviser line:
-                            */
-                           
-                           if (line.startsWith("Haplotype") || line.startsWith("Chromosome")) 
-                           {
-                           
-                                    adviser_file = true;     
-                                   
-                                    
-                                    /*
-                                     * Check to see if the line ends in comments (did it come out of UI already)
-                                     */
-                                    if (line.contains("Comments")) {
-                                          header = "Index".concat("\t");
-                                          analysedFile = true;
-                                          String [] tempL = line.split("\t");
-                                          for (int ij =0; ij<tempL.length; ij++) {
-                                              if (tempL[ij].contains("Index")) {
-                                                  indexColumnNumber = ij;
-                                              } else {
-                                                  header = header.concat(tempL[ij]).concat("\t");
-                                              }
-                                          }
-                                    } else {
-                                          header = "Imported_Genotypes" + "\t" + "Index" + "\t" + line;
-                                     }
-                                    
-                                    fiftyLines.head = new Header(header);
-                           }
-                           
-                       }
+                new FileReader(file));        
+                String line = null;
+                fiftyLines.arrayOfLines = new ArrayList<ScrippsGenomeAdviserUI.Reader>();
+                for(int i=0;i<1;i++) {  
+                		line = bReader.readLine();
+                    String header = "";
+                    /*
+                     * Check to see if this is a SG-ADviser line:
+                     */
+                    if (line.startsWith("Haplotype") || line.startsWith("Chromosome")) {   
+                        adviser_file = true;     
+                        /*
+                         * Check to see if the line ends in comments (did it come out of UI already)
+                         */
+                        if (line.contains("Comments")) {
+	                          header = "Index".concat("\t");
+	                          analysedFile = true;
+	                          String [] tempL = line.split("\t");
+	                          for (int ij =0; ij<tempL.length; ij++) {
+	                              if (tempL[ij].contains("Index")) {
+	                                  indexColumnNumber = ij;
+	                              } else {
+	                                  header = header.concat(tempL[ij]).concat("\t");
+	                              }
+                              }
+                        } else {
+                              header = "Imported_Genotypes" + "\t" + "Index" + "\t" + line;
+                        }     
+                        fiftyLines.head = new Header(header);
+                   }        
+               }
             
             // If this is a sg_adviser file continue
             if (adviser_file) {
@@ -239,12 +230,8 @@ public void openFile() {
                     Prefilter(fileinGB); 
 
                 }  else {
-
-                int datacount = 0; 
-
                 for (int line_count=1; line_count<1001; line_count++) 
                 {
-
 
                             String current_line = null;             
                             current_line = bReader.readLine();
@@ -307,8 +294,6 @@ public void openFile() {
                     demo1.frame.add(new JLabel("                                                                       "));
                     demo1.frame.add(new JLabel("             example of a SG ADVISER annotated file.                   "));
                     demo1.frame.setVisible(true); 
-                //System.out.println("This is not a SG ADVISER annotated file, please select a correct file! ");
-                //System.out.println("Go to http://genomics.scripps.edu/ADVISER/Result_Desc.jsp to see example of annotated files.");
             }
             } catch (IOException ex) {
                 Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
@@ -319,6 +304,7 @@ public void openFile() {
         {
         	 openCnv = new CnvViewerInterface();
         	 openCnv.startCnvViewerInterface(file);
+        	 this.frame.dispose();  
         }
      
         }
@@ -376,11 +362,9 @@ public void StatsFile() throws IOException {
     statistics = 1;
     String [] head; 
     String  line = null;
-    int datacount = 0;
     int returnVal = fileChooser.showOpenDialog(this);
     if (returnVal == JFileChooser.APPROVE_OPTION) {
         file = fileChooser.getSelectedFile();
-        boolean match;
         BufferedReader bReader = null;
         try {
             bReader = new BufferedReader(
@@ -406,9 +390,7 @@ public void StatsFile() throws IOException {
     
 }
 public void Prefilter(double fileSize) {
-      String line = null;
-
-                      boolean match;
+		String line = null;
         BufferedReader bReader = null;
         try {
             bReader = new BufferedReader(
@@ -478,8 +460,6 @@ public void Prefilter(double fileSize) {
 
 
 public void OpenActionPerformed(java.awt.event.ActionEvent evt) {  
-            
-          //  Prefilter();
 		
           openFile();
      
@@ -511,6 +491,10 @@ public JPanel createContentPane(){
         return totalGUI;
 }
 
+/**
+ * Creates the Menu Bar
+ * @return JMenuBar
+ */
  public JMenuBar createMenuBar() {
      
 
@@ -582,21 +566,9 @@ private static void createAndShowGUI() {
     }
 
 
-    public static void main(String[] args) {
-          //JFrame frame = new JFrame();
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        
+public static void main(String[] args) {
         
         try {
-            /*
-             * Per reviewers request: The file viewer, for selecting files to upload, is not the standard one used on a mac and gave no easy way to sort files in order to find, for example, a recently created file. This was frustrating.
-             */
-           // UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            
            
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -607,16 +579,12 @@ private static void createAndShowGUI() {
             
         } catch (ClassNotFoundException ex) {
             System.out.println("ClassNotFoundException ex");
-            //java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
             System.out.println("InstantiationException ex");
-            //java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
             System.out.println("IllegalAccessException ex");
-            //java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             System.out.println("UnsupportedLookAndFeelException");
-            //java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -631,15 +599,8 @@ private static void createAndShowGUI() {
     }
     
       // Variables declaration - do not modify
-    private javax.swing.JMenuItem Exit;
-    private javax.swing.JMenuItem Open;
     public static javax.swing.JFileChooser fileChooser;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     // End of variables declaration
 
 }

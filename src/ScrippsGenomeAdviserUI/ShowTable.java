@@ -167,7 +167,7 @@ public class ShowTable extends javax.swing.JFrame implements Runnable {
            if (!h.lastElement().equals("Comments")) {
                 h.add("Comments");
            }
-           columns = (String[])h.toArray(new String[h.size()]);
+           columns = h.toArray(new String[h.size()]);
            }
            
            
@@ -322,8 +322,8 @@ public static void into2DArrayFilterData (ArrayList<ScrippsGenomeAdviserUI.Reade
    
 
         panel.setLayout(new BorderLayout());
-        demo.frame.setJMenuBar(demo.createMenuBar());
-        demo.frame.add(new JScrollPane( table ));
+        ShowTable.frame.setJMenuBar(ShowTable.createMenuBar());
+        ShowTable.frame.add(new JScrollPane( table ));
                                                                                                                                           
       //Insert the column combobox for filter
      JComboBox column = new JComboBox(columns);
@@ -363,7 +363,7 @@ public static void into2DArrayFilterData (ArrayList<ScrippsGenomeAdviserUI.Reade
      tempArray = ShowTable.arrayOfArrays.get(FilterFunctions.currentArray);
      int arrayLenght = tempArray.size();
      int finalPage;
-     int pag = (int) arrayLenght/1000;  
+     int pag = arrayLenght/1000;  
      if (pag < 1) {
          pag = 1;
          finalPage = 1;
@@ -534,7 +534,7 @@ public static void into2DArrayFilterData (ArrayList<ScrippsGenomeAdviserUI.Reade
     toolBar2.add(nextPage);
     lastPage.setToolTipText("Shows last filtered array");
     toolBar2.add(lastPage);
-    demo.frame.add(toolBar2, BorderLayout.NORTH);
+    ShowTable.frame.add(toolBar2, BorderLayout.NORTH);
     
     if(onlyPage == 0) {
     	Next = new JButton("Next Page");
@@ -615,26 +615,28 @@ public static void into2DArrayFilterData (ArrayList<ScrippsGenomeAdviserUI.Reade
         }
         
         
-        demo.frame.add(toolBar, java.awt.BorderLayout.SOUTH);    
-        demo.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        demo.frame.pack();
-        demo.frame.setSize(frameWidth, frameHeight);
-        demo.frame.setVisible( true ); 
-        demo.frame.setTitle(title);
-        demo.frame.setLocationRelativeTo(null);
+        ShowTable.frame.add(toolBar, java.awt.BorderLayout.SOUTH);    
+        ShowTable.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ShowTable.frame.pack();
+        ShowTable.frame.setSize(frameWidth, frameHeight);
+        ShowTable.frame.setVisible( true ); 
+        ShowTable.frame.setTitle(title);
+        ShowTable.frame.setLocationRelativeTo(null);
         //compenent to determine user resize
-        demo.frame.addComponentListener(new ComponentAdapter() {
-        public void componentResized(ComponentEvent e) {
+        ShowTable.frame.addComponentListener(new ComponentAdapter() {
+        @Override
+		public void componentResized(ComponentEvent e) {
             if(componentShown) {
              //  System.out.println("Component RESIZED");
-               frameHeight = demo.frame.getHeight();
-               frameWidth = demo.frame.getWidth();
+               frameHeight = ShowTable.frame.getHeight();
+               frameWidth = ShowTable.frame.getWidth();
              //  System.out.println("Frame height is: " + Integer.toString(frameHeight));
              //  System.out.println("Frame width is: " + Integer.toString(frameWidth));
             }  
         }
 
-        public void componentShown(ComponentEvent e) {
+        @Override
+		public void componentShown(ComponentEvent e) {
             componentShown = true;
         }
     });
@@ -1846,13 +1848,13 @@ public static void CodingVarFreqActionPerformed(java.awt.event.ActionEvent evt) 
 public static void ChromosomePosition(java.awt.event.ActionEvent evt) {
   ChromPosFilter fr = new ChromPosFilter();
   String[] a = {"", ""};
-  fr.main(a);
+  ChromPosFilter.main(a);
 }
 
 public static void IDIOM(java.awt.event.ActionEvent evt) {
       IDIOMmultipleChildren fr = new IDIOMmultipleChildren(); 
       String[] a = {"", ""};
-      fr.main(a);
+      IDIOMmultipleChildren.main(a);
   
 }
 
