@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="dist/lib/beansbinding-1.2.1.jar"/>
 	<classpathentry kind="lib" path="dist/lib/swing-layout-1.0.4.jar"/>
-	<classpathentry kind="lib" path="dist/SG-ADVISER_UI_1.6_7.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
