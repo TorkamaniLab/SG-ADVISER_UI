@@ -1169,13 +1169,12 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		JMenuItem codingVarFreq = new JMenuItem(
 				"Coding Variants with Frequency");
 		JMenuItem knownDisease = new JMenuItem("Known Disease");
-		JMenu predictedDisease = new JMenu(
-				"Known and Predicted Disease-Causing Variants");
-		JMenuItem predClinical = new JMenuItem("Clinical");
-		JMenuItem predResearch = new JMenuItem("Research");
+		//JMenu predictedDisease = new JMenu("Known and Predicted Disease-Causing Variants");
+		//JMenuItem predClinical = new JMenuItem("Clinical");
+		JMenuItem predResearch = new JMenuItem("Known and Predicted Disease-Causing Variants");
 
 		JMenuItem cancerGenes = new JMenuItem("Cancer Genes");
-		JMenuItem pharmacogenetic = new JMenuItem("Pharmacogenetic");
+		//JMenuItem pharmacogenetic = new JMenuItem("Pharmacogenetic");
 		JMenuItem truncatedVariants = new JMenuItem("Truncating Variants");
 		JMenuItem chromPos = new JMenuItem("Chromosome Position");
 		JMenuItem validValueFilter = new JMenuItem("Existing Valid Values");
@@ -1183,21 +1182,20 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		JMenuItem stats = new JMenuItem("Statistics");
 		JMenuItem helpMe = new JMenuItem("Help");
 		//JMenuItem geneList = new JMenuItem("Gene list filter"); 
-		predictedDisease.add(predClinical);
-		predictedDisease.add(predResearch);
+		//predictedDisease.add(predClinical);
+		//predictedDisease.add(predResearch);
 
 		codingVar
 				.setToolTipText("All variants impacting the protein coding sequence of a gene: i.e. all possible coding impacts except synonymous variants.");
 		codingVarFreq
 				.setToolTipText("Coding Variants plus a user defined frequency threshold in as observed in the 1000 Genomes and the Scripps Wellderly population.");
 		knownDisease.setToolTipText("'1' values of the ADVISER-Score columns.");
-		predClinical
-				.setToolTipText("All entries in the column 'ADVISER Score Clinical/Disease Entry/Explanation' receiving a modified ADVISER categorization of 1, 2, or 2*. See http://genomics.scripps.edu/ADVISER/ACMG.jsp for ACMG scoring criteria.");
+		//predClinical.setToolTipText("All entries in the column 'ADVISER Score Clinical/Disease Entry/Explanation' receiving a modified ADVISER categorization of 1, 2, or 2*. See http://genomics.scripps.edu/ADVISER/ACMG.jsp for ACMG scoring criteria.");
 		predResearch
 				.setToolTipText("All entries in the column 'ADVISER Score Research/Disease Entry/Explanation' receiving a modified ACMG categorization of 1, 2 and 2*. See http://genomics.scripps.edu/ADVISER/ACMG.jsp for ACMG scoring criteria.");
 		cancerGenes
 				.setToolTipText("All genes annotated as cancer genes by either the Sanger Cancer Gene Census, Memorial Sloan Kettering Cancer Center or Atlas Oncology.");
-		pharmacogenetic.setToolTipText("All variants curated by PharmGKB.");
+		//pharmacogenetic.setToolTipText("All variants curated by PharmGKB.");
 		truncatedVariants
 				.setToolTipText("All Frameshift and Nonsense variants."); //CHANGE TO: Frameshift, n-terminal deletion and c- terminal Deletion
 		chromPos.setToolTipText("All variants within a user defined region.");
@@ -1208,9 +1206,9 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		filters.add(codingVar);
 		filters.add(codingVarFreq);
 		filters.add(knownDisease);
-		filters.add(predictedDisease);
+		filters.add(predResearch);
 		filters.add(cancerGenes);
-		filters.add(pharmacogenetic);
+		//filters.add(pharmacogenetic);
 		filters.add(truncatedVariants);
 		filters.add(chromPos);
 		filters.add(validValueFilter);
@@ -1382,6 +1380,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 			}
 		});
 
+		/*
 		predClinical.addActionListener(new java.awt.event.ActionListener()
 		{
 			@Override
@@ -1404,7 +1403,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 				}
 			}
 		});
-
+*/
 		predResearch.addActionListener(new java.awt.event.ActionListener()
 		{
 			@Override
@@ -1451,7 +1450,8 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 
 			}
 		});
-
+		
+		/*
 		pharmacogenetic.addActionListener(new java.awt.event.ActionListener()
 		{
 			@Override
@@ -1475,6 +1475,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 			}
 		});
 
+	*/
 		truncatedVariants.addActionListener(new java.awt.event.ActionListener()
 		{
 			@Override
@@ -1870,7 +1871,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 	public static void PredResearchActionPerformed(
 			java.awt.event.ActionEvent evt)
 	{
-		CnvFilterFunctions rf2 = new CnvFilterFunctions("ADVISER_research");
+		CnvFilterFunctions rf2 = new CnvFilterFunctions("ADVISER Known and Predicted");
 		threadExecutor = Executors.newFixedThreadPool(1);
 		threadExecutor.execute(rf2);
 		threadExecutor.shutdown();

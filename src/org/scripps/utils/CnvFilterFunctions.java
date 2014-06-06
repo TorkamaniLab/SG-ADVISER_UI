@@ -597,7 +597,7 @@ public class CnvFilterFunctions implements Runnable
 		// find which is the column named ADVISER_Clinical...
 		for (int i = 0; i < CnvShowTable.columnNames.length; i++)
 		{
-			if (CnvShowTable.columnNames[i].contains("ADVISER_Score_Research"))
+			if (CnvShowTable.columnNames[i].contains("ADVISER_Score"))
 			{
 				System.out.println("We will be selecting by column: ");
 				System.out.println(CnvShowTable.columnNames[i]);

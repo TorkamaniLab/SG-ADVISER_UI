@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="2"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jScrollPane1" alignment="1" pref="947" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="493" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea1">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="Scripps Genome Adviser GUI is a visualization tool built to help researchers view and analyze SG Adviser output data.&#xa;&#xa;The tool allows you to:&#xa;&#xa;1. Visualize big files (1GB+);&#xa;2. View the file contents by pressing on next/previous pages at the bottom of the   page;&#xa;3. Sort the entire file by a selected column;&#xa;4. Simple filter - filter by any criteria any column of the file;&#xa;5. 12 custom filter:&#xa;    a. Coding variants &#x2013; filters all possible values of the &#x201c;Coding Impact&#x201d; column except Synonymous values;&#xa;    b. Coding &amp; splice variants - all possible values of &#x201c;Coding Impact&#x201d; and &#x201c;Splice Site Pred&#x201d; (except synonymous values);&#xa;    c. Known Disease &#x2013; Causing Variants &#x2013; &#x201c;1&#x201d; values of the ACMG-Score columns;&#xa;    d. Clinical Known and Predicted Disease Causing Variants - all entries in the column &#x201c;ACMG Score Clinical/Disease Entry/Explanation&#x201d;;&#xa;    e. Research Known and predicted Disease Causing Variants - all entries in the column &#x201c;ACMG Score Research/Disease Entry/Explanation&#x201d;;&#xa;    f. Cancer Genes &#x2013; all entries that are not null from either columns &#x201c;COSMIC Variant&#x201d;, &#x201c;COSMIC Gene&#x201d;, &#x201c;Sanger Cancer Gene&#x201d;,  &#x201c;Sanger Germline Cancer Genes&#x201d; or &#x201c;Sanger network-informed Cancer Genes&#x201d;;&#xa;    g. Pharmacogenetic &#x2013; all not null value in PharmKGB column;&#xa;    h. Truncating Variants &#x2013; all Frameshift and Nonsence variants;&#xa;    i. Coding and Splice Variants with Frequency - all possible values of &#x201c;Coding Impact&#x201d; and &#x201c;Splice Site Pred&#x201d; (except synonymous values) that have frequency in the columns &#x201c;1000Genomes&#x201d;, &#x201c;GC_69&#x201d; and &#x201c;GC_Wellderly&#x201d; lower than the chosen frequency;&#xa;    j. Non dbSNP Coding and Splice Variants with Frequency -  entries without a dbSNP ID but with all possible values in &#x201c;Coding Impact&#x201d; and &#x201c;Splice Site Pred&#x201d; columns (except synonymous values) that have frequency in the columns &#x201c;1000Genomes&#x201d;, &#x201c;GC_69&#x201d; and &#x201c;GC_Wellderly&#x201d; lower than the chosen frequency;&#xa;    k. Chromosome position &#x2013; choose all entries on any selected chromosome, that are located between the entered start and end position;&#xa;6. Advance filter - filter any 3 columns with any entered filter data (AND option);&#xa;7. Save to file &#x2013; saves the current view (sort/filter) to a selected file;&#xa;8. Comment column &#x2013; insert any comment in the last column of the view, the comment will be saved if the file is saved;&#xa;9. When you apply a filter to data it only shows the filtered data, you can further filter this data, but if you want to do a brand new filter you need to undo (Undo -&gt; Original Data or press |&lt;) to gain access to the original data. Also the &quot;|&lt; &lt;&lt; &gt;&gt; &gt;|&quot; on the side of menu bar will take you through the filtered arrays;&#xa;10. Load and compare VCF - gives you the ability to load the VCF file, the VCF file is then compared to the pipeline input file, if it comes from the same data set the Imported Genotype column is filled up with data from the VCF file;&#xa;11. Tooltips &#x2013; if you let the cursor hover above any menu item it will explain its functionality in a few words;&#xa;&#xa;Running SG-ADVISER UI:&#xa;&#xa;OSX users: Double-click SG-ADVISER_UI_&apos;version&apos;.command file to run SG-Adviser UI;&#xa;Windows users: Double-click SG-ADVISER_UI_&apos;version&apos;.bat file to run SG-Adviser UI;&#xa;Terminal/console/command window users: &apos;cd&apos; to the folder where the SG-ADVISER UI is located&#xa;Type java -Xmx2g -jar SG-Adviser_UI_&apos;version&apos;.jar&#xa;You may need more memory, especially if nothing seems to be happening, or you see an error in the terminal/console/command window about &quot;Out of Heap Space&quot;. This can be changed by editing the *.command or *.bat file: change &quot;-Xmx2g&quot; to be something larger, like &quot;-Xmx8g&quot; (no quotes). Note that this needs to be lower than your total system memory. &#xa;&#xa;&#xa;Example usage:&#xa;1. Double click on the Sg_Adviser.jar;&#xa;2. Go to File -&gt; Open and select the file you want to analyze;&#xa;3. Press on Next Page to view the file contents (to save time at loading only 500 lines are shown per view, &#xa;you can look at the first few pages while the entire file is being loaded in memory); &#xa;4. Be patient till the progress bar shows that the entire file is loaded in memory before you proceed with any sorting of filtering;&#xa;5. Sort file by a column of interest. Ex: Gene or ACMG Score;&#xa;6. Use the custom filters by looking at Known and Predicted Disease &#x2013; Causing Variants;&#xa;7. Find out the variants in Cancer Genes from the Known and Predicted Disease Causing Variants by selecting the Cancer Genes filter;&#xa;8. Remember that each consecutive filter is filtering the current filter data; in order to filter the entire file you have to click on Undo -&gt; Original data or click |&lt;;&#xa;9. If the filter result is bigger than 1000 entries you can see the next pages by clicking on Next Page or go back by clicking on Previous Page at the bottom of the view;&#xa;10. If you want to find only variants that are entries in PharmGKB database and drug whose metabolism is perturbed you can use the Pharmacogenetic filter;&#xa;11. To select only entries on a specific chromosome/position choose Chromosome Position filter;&#xa;12. To filter the variants from a single gene, in the filter bar select column &#x201c;Gene&#x201d;in enter the gene name. Ex: TP 53;&#xa;13. Add comments in the comments column;&#xa;14. Save results to file;&#xa;15. Go back to Original Data;&#xa;16. Use custom filter and filter by any 3 criteria;&#xa;17. Go on genomics.scripps.edu/Adviser/Result_desc.jsp to read about the description of each column;&#xa;18. Contact us on the forum at genomics.scripps.edu/forum/ for questions or help. Or email gerikson@scripps.edu for questions directly related to the GUI.&#xa;&#xa;Troubleshooting:&#xa;&#xa; If you are loading a bigger file (1GB+) you need to change the heap size (not forever, just for as long as the application runs, I promise it won&apos;t burn your computer) I&apos;m working on changing the heap size at runtime but for the time being you need to type from terminal/cmd:&#xa;      java -Xms1g -Xmx10g -jar &quot;path to jar file&quot; ; example of path to jar file was: /Users/gerikson/desktop/dist/SG-Adviser_1.2_2.jar.&#xa;&#xa;    If SG Adviser GUI will not start, I see error messages about &quot;class&quot; or &quot;loading&quot;.&#xa;    If you&apos;re using a Windows machine, Internet explorer may be &quot;helpful&quot; and rename the .jar file as .zip. This is bad. Either use Firefox to &quot;Save As&quot; the file (making sure it is not changing the filetype) or rename the file. To rename the file in Windows correctly, you either must be showing file extensions, or you have to use the &quot;ren&quot; command on the command prompt.&#xa;&#x9;&#xa;Check back for future functionalities:&#xa;     Advance filter on more then 3 criteria with (&#x201c;&amp;&#x201d; and &#x201c;||&#x201d; options and the combination on both);&#xa;     Options menu or you can choose how many lines you wish to be displayed in a view;&#xa;     Ability to click on a row and to see the sub-values in each column to extend in new rows;&#xa;&#xa;Questions, comments, suggestions will be greatly appreciated. Please contact Galina Erikson at gerikson@scripps.edu&#xa;&#xa;Thank you for using SG Adviser!&#xa;"/>
+            <Property name="name" type="java.lang.String" value="Help Menu" noResource="true"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
