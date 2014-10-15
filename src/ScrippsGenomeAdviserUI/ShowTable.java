@@ -275,7 +275,330 @@ public static void into2DArrayFilterData (ArrayList<ScrippsGenomeAdviserUI.Reade
         String filter_name = FilterFunctions.filterName.get(FilterFunctions.currentArray);
         createContentTable(dataFilter, columns, "Filtered file by  " + filter_name);
 }
+
+public static void createContentTable(final Object[][] data, String[] headArray, String title){ 
+	
+    columns = headArray;  
+    columnNames = headArray;
+    final JTable table = new JTable(data, headArray );
+    table.setAutoResizeMode( JTable.AUTO_RESIZE_OFF );
+    table.setAutoCreateRowSorter(true);
+    // Set the height of all rows to 32 pixels high,
+    // regardless if any heights were assigned to particular rows
+    table.setRowHeight(25);
+    
+    table.getTableHeader().setToolTipText(
+    "Click to sort; Shift-Click to sort in reverse order");
+   
+    // Disable autoCreateColumnsFromModel otherwise all the column customizations
+    // and adjustments will be lost when the model data is sorted
+    table.setAutoCreateColumnsFromModel(false); 
+    final ShowTable demo = new ShowTable();
+    
+    //Functionality to edit comments columns and the ability to save it       
+    int vColIndex = columns.length - 1;
+    TableColumn col = table.getColumnModel().getColumn(vColIndex);
+    TableEditor mt = new TableEditor();
+    col.setCellEditor(mt);
+
+
+    panel.setLayout(new BorderLayout());
+    demo.frame.setJMenuBar(demo.createMenuBar());
+    demo.frame.add(new JScrollPane( table ));
+                                                                                                                                      
+ 	//Insert the column combobox for filter
+    JComboBox column = new JComboBox(columns);
+    JLabel lOne = new JLabel("  Select column: ");
+
+
+    column.addActionListener(new java.awt.event.ActionListener() {
+    		@Override
+    		public void actionPerformed(java.awt.event.ActionEvent evt) {
+               sortSelection = FilterFileActionPerformed(evt);
+        }
+
+    private String FilterFileActionPerformed(ActionEvent evt) {
+             JComboBox cb = (JComboBox)evt.getSource();
+             String selection = (String)cb.getSelectedItem();
+             return selection;
+
+    }
+
+    }); 
+
+    filterText = new JTextField("Please enter the filter criteria!"); 
+    JButton button = new JButton("Filter file");
+    JLabel emptyspace = new JLabel(" ");
+    JLabel emptyspace1 = new JLabel(" ");
+
+    JLabel button2 = new JLabel( "                                                                                                   ");   
+    JLabel button1 = new JLabel("                                                                                                                               ");
+    //get the current array size 
+    int ij = ShowTable.arrayOfArrays.size();
+    if (ij >0) { 
+    		ArrayList<ScrippsGenomeAdviserUI.Reader> tempArray = new ArrayList<ScrippsGenomeAdviserUI.Reader>();
+    		tempArray = ShowTable.arrayOfArrays.get(FilterFunctions.currentArray);
+    		int arrayLenght = tempArray.size();
+    		int finalPage;
+    		int pag = arrayLenght/1000;  
+    	if (pag < 1) {
+    		pag = 1;
+    		finalPage = 1;
+    	} else {
+    		//adding one to the final page due to the fact that in most cases it won't be exact division by 1000
+    		finalPage = pag + 1;
+    	}
+ 
+    	//If this is the first page, page count needs to start at 1, just another error check
+    	if (onlyPage == 3) {
+        FilterFunctions.pageNumber = 1;
+        button2 = new JLabel( "1000 lines per page / Page " + FilterFunctions.pageNumber + " / "  + finalPage + " pages                                 ");     
+    } else {
+        button2 = new JLabel( "1000 lines per page / Page " + FilterFunctions.pageNumber + " / "  + finalPage + " pages                                 ");     
+     }
+    } 
+ 
+ 
+    JLabel undo = new JLabel("Undo/Redo:");
+    JButton advanceFilter = new JButton("Advanced Filter");
+    advanceFilter.addActionListener(new java.awt.event.ActionListener() {
+      @Override
+       public void actionPerformed(java.awt.event.ActionEvent evt) {    
+              advanceFilterActionPerformed(evt);
+        }
+
+    private void advanceFilterActionPerformed(ActionEvent evt) {
+                InitGlobalVar();
+                tableStatus = 14;  
+        if (threadStat == false) {
+                 AdvanceFilter();    
+                    } else {
+                threadExecutor.shutdownNow();
+         //       heapSortAlgorithm.frame.dispose();
+         //       heapSortAlgorithm.ArrayforSort = null;
+                      AdvanceFilter();
+              }
+    }
+    });
+      
+    JButton firstPage = new JButton("|<<");
+
+    //if this is the main array, no actions aloud
+    if (FilterFunctions.currentArray == 0) {
+    		firstPage.setEnabled(false);
+    } else {
+    		firstPage.addActionListener(new java.awt.event.ActionListener() {
+    			@Override
+    			public void actionPerformed(java.awt.event.ActionEvent evt) {
         
+    	  onlyPage = 0;
+    	  UndoActionPerformed(evt);
+          
+        }
+
+    	});
+    }
+    JButton prevPage = new JButton("<");
+    //if this is the main array, no actions alowed
+    if (FilterFunctions.currentArray == 0) {
+    		prevPage.setEnabled(false);
+    } else {
+    		prevPage.addActionListener(new java.awt.event.ActionListener() {
+    			@Override
+    			public void actionPerformed(java.awt.event.ActionEvent evt) {
+    			onlyPage = 0;
+    			UndoDataActionPerformed(evt);
+        }
+
+    		});
+    }
+
+    JButton nextPage = new JButton(">");
+    //if this is the last filtered array, no actions alowed
+    if (FilterFunctions.currentArray == ShowTable.arrayOfArrays.size() - 1) {
+    		nextPage.setEnabled(false);
+    } else {
+    		nextPage.addActionListener(new java.awt.event.ActionListener() {
+    			@Override
+    		public void actionPerformed(java.awt.event.ActionEvent evt) {  
+    		onlyPage = 0;
+    		NextFilterActionPerformed(evt);  
+        }
+    		});
+    }
+
+    JButton lastPage = new JButton(">>|");
+
+    //if this is the last filtered array, no actions alowed
+    if (FilterFunctions.currentArray == ShowTable.arrayOfArrays.size() - 1) {
+    		lastPage.setEnabled(false);
+    } else {
+    		lastPage.addActionListener(new java.awt.event.ActionListener() {
+    			@Override
+    			public void actionPerformed(java.awt.event.ActionEvent evt) {
+    			onlyPage = 0;
+    			LastFilterActionPerformed(evt);
+        }
+    		});
+    }
+
+    Border bored = BorderFactory.createRaisedBevelBorder();
+    button.setBorder(bored);
+    advanceFilter.setBorder(bored);
+    button.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+    	  		text = "";
+    	  		text = filterText.getText();
+    	  		String st = "Please enter the filter criteria!";
+    	  if (text==st) {
+    		  text = "";
+    	  }
+    if (text.length() > 0) {
+        tableStatus = 15;
+        InitGlobalVar();
+        //kill the sort thread if it's hapening
+        if (threadStat == false) {
+                FilteredArray = new ArrayList<ScrippsGenomeAdviserUI.Reader>();
+             FilterFunctions rf2 = new FilterFunctions(sortSelection);
+             threadExecutor = Executors.newFixedThreadPool(1);
+             threadExecutor.execute(rf2);
+             threadExecutor.shutdown(); 
+                    } else {
+                threadExecutor.shutdownNow();
+
+                FilteredArray = new ArrayList<ScrippsGenomeAdviserUI.Reader>();
+                FilterFunctions rf2 = new FilterFunctions(sortSelection);
+                threadExecutor = Executors.newFixedThreadPool(1);
+                threadExecutor.execute(rf2);
+                threadExecutor.shutdown(); 
+              }           
+     
+    		}
+      }
+    });
+  
+    	JToolBar toolBar2 = new JToolBar();
+    toolBar2.add(lOne);
+    toolBar2.add(column);
+    toolBar2.add(filterText);
+    toolBar2.add(button);
+    toolBar2.add(emptyspace);
+    toolBar2.add(advanceFilter);
+    toolBar2.add(emptyspace1);
+    toolBar2.add(undo);
+    firstPage.setToolTipText("Shows original data");
+    toolBar2.add(firstPage);
+    prevPage.setToolTipText("Shows previous filtered array");
+    toolBar2.add(prevPage);
+    	nextPage.setToolTipText("Shows next filtered array");
+	toolBar2.add(nextPage);
+	lastPage.setToolTipText("Shows last filtered array");
+	toolBar2.add(lastPage);
+	demo.frame.add(toolBar2, BorderLayout.NORTH);
+
+	if(onlyPage == 0) {
+		Next = new JButton("Next Page");
+		Previous = new JButton("First Page!");
+		Previous.setEnabled(false);
+		onlyPage = 4; 
+	    
+	} else if (onlyPage == 1){
+		Next = new JButton("Single Page!");
+		Previous = new JButton("              ");
+		Next.setEnabled(false);
+		Previous.setEnabled(false);
+	
+	} else if (onlyPage == 2){
+		Next = new JButton("Last Page!");
+		Previous = new JButton("Previous Page");
+		Next.setEnabled(false);
+		Previous.setEnabled(true); // added by Neha
+		onlyPage = 4;
+	
+	} else if (onlyPage == 3){
+		Next = new JButton("Next Page");
+		Previous = new JButton("First Page!");
+		Previous.setEnabled(false);
+		onlyPage = 4;
+	} else if (onlyPage == 4)
+	{
+		Next = new JButton("Next Page");
+		Previous = new JButton("Previous Page");
+		Next.setEnabled(true);
+		Previous.setEnabled(true);
+	
+	}
+ 
+	Next.addActionListener(new java.awt.event.ActionListener() {
+	
+	       @Override
+	       public void actionPerformed(java.awt.event.ActionEvent evt) {
+	             try {
+	                  Next.setEnabled(false);
+	                  NextPage();
+	             } catch (InterruptedException ex) {
+	                 Logger.getLogger(ShowTable.class.getName()).log(Level.SEVERE, null, ex);
+	             }
+	        }
+
+	});
+	Previous.addActionListener(new java.awt.event.ActionListener() {
+	
+	       @Override
+	       public void actionPerformed(java.awt.event.ActionEvent evt) {
+	
+	                Previous.setEnabled(false);
+	                PreviousPage();
+	
+	        }
+
+	});
+	     
+    JToolBar toolBar = new JToolBar();
+    toolBar.add(button1);
+    toolBar.add(button2);
+    
+    if (onlyPage != 1) {
+        toolBar.add(Previous);
+        toolBar.add(Next);
+    } else {
+        JLabel button3 = new JLabel( "          ");   
+        JLabel button4 = new JLabel( "Single page");  
+        toolBar.add(button3);
+        toolBar.add(button4);
+        onlyPage = 0;
+    }
+    
+    
+    demo.frame.add(toolBar, java.awt.BorderLayout.SOUTH);    
+    demo.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    demo.frame.pack();
+    demo.frame.setSize(frameWidth, frameHeight);
+    demo.frame.setVisible( true ); 
+    demo.frame.setTitle(title);
+    demo.frame.setLocationRelativeTo(null);
+    //compenent to determine user resize
+    ShowTable.frame.addComponentListener(new ComponentAdapter() {
+    @Override
+	public void componentResized(ComponentEvent e) {
+        if(componentShown) {
+         //  System.out.println("Component RESIZED");
+           frameHeight = ShowTable.frame.getHeight();
+           frameWidth = ShowTable.frame.getWidth();
+         //  System.out.println("Frame height is: " + Integer.toString(frameHeight));
+         //  System.out.println("Frame width is: " + Integer.toString(frameWidth));
+        }  
+    }
+
+    @Override
+	public void componentShown(ComponentEvent e) {
+        componentShown = true;
+    }
+});
+   
+}  
+/**
     public static void createContentTable(final Object[][] data, String[] headArray, String title){ 
         columns = headArray;  
         columnNames = headArray;
@@ -332,9 +655,6 @@ public static void into2DArrayFilterData (ArrayList<ScrippsGenomeAdviserUI.Reade
     
     JLabel button2 = new JLabel( "                                                                                                   ");   
     JLabel button1 = new JLabel("                                                                                                                               ");
-   /*
-    * page count removed for now
-    */ 
     //get the current array size 
     int ij = ShowTable.arrayOfArrays.size();
      if (ij >0) { 
@@ -582,9 +902,6 @@ public static void into2DArrayFilterData (ArrayList<ScrippsGenomeAdviserUI.Reade
             toolBar.add(Previous);
             toolBar.add(Next);
         } else {
-            /*
-             * Had to insert JLabel vs JButton for single page becouse it looks funcky if I don't for Look and Feel for some systems
-             */
             JLabel button3 = new JLabel( "          ");   
             JLabel button4 = new JLabel( "Single page");  
             toolBar.add(button3);
@@ -620,6 +937,8 @@ public static void into2DArrayFilterData (ArrayList<ScrippsGenomeAdviserUI.Reade
     });
        
 }
+
+*/
     
 public static void PreviousPage() {
     FilterFunctions.pageNumber--;
@@ -989,7 +1308,7 @@ public static JMenuBar createMenuBar() {
       codingVar.setToolTipText("All variants impacting the protein coding sequence of a gene: i.e. all possible coding impacts except synonymous variants." );
       spliceVar.setToolTipText("Coding Variants plus variants annotated to damaged splice donor and acceptor sites.");
       codingVarFreq.setToolTipText("Coding and Splice Variants plus a user defined frequency threshold in as observed in the 1000 Genomes, 69 publically available Complete Genomics genomes and the Scripps Wellderly population.");
-      knownDisease.setToolTipText("'1' values of the ACMG-Score columns.");
+      knownDisease.setToolTipText("'1' values of the ADVISER-Score columns.");
       predClinical.setToolTipText("All entries in the column 'ADVISER Score Clinical/Disease Entry/Explanation' receiving a modified ADVISER categorization of 1, 2, or 2*. See http://genomics.scripps.edu/ADVISER/ADVISER_score.jsp for ADVISER scoring criteria.");
       predResearch.setToolTipText("All entries in the column 'ADVISER Score Research/Disease Entry/Explanation' receiving a modified ADVISER categorization of 1, 2 and 2*. See http://genomics.scripps.edu/ADVISER/ADVISER_score.jsp for ADVISER scoring criteria.");
       cancerGenes.setToolTipText("All genes annotated as cancer genes by either the Sanger Cancer Gene Census, Memorial Sloan Kettering Cancer Center or Atlas Oncology.");
@@ -1139,9 +1458,13 @@ public static JMenuBar createMenuBar() {
                 if (threadStat == false) {
                       CodingVarActionPerformed(evt);
                         } else {
-                    threadExecutor.shutdownNow();
-                    MergeSort.frame.dispose();
-                    MergeSort.ArrayforSort = null;
+                        	try {
+                        		threadExecutor.shutdownNow();
+                        		MergeSort.frame.dispose();
+                        		MergeSort.ArrayforSort = null;
+                        	} catch(Exception ex) {
+                        		System.out.println("");
+                        	}
                     CodingVarActionPerformed(evt);
                   }
             }
@@ -1160,8 +1483,12 @@ public static JMenuBar createMenuBar() {
                     if (threadStat == false) {
                         SpliceVarActionPerformed(evt);    
                         } else {
-                        threadExecutor.shutdownNow();
-                        MergeSort.frame.dispose();
+                        	try {
+                        		threadExecutor.shutdownNow();
+                        		MergeSort.frame.dispose();
+                        	}  catch( Exception ex) {
+                        		System.out.println("");
+                        	}
                         SpliceVarActionPerformed(evt);
 
                   }
@@ -1178,11 +1505,13 @@ public static JMenuBar createMenuBar() {
                 if (threadStat == false) {
                      KnownDiseaseActionPerformed(evt);
                         } else {
-                    threadExecutor.shutdownNow();
-              //      heapSortAlgorithm.frame.dispose();
-               //     heapSortAlgorithm.ArrayforSort = null;
-                      MergeSort.frame.dispose();
-                      MergeSort.ArrayforSort = null;
+                        		try {
+                        			threadExecutor.shutdownNow();
+                        			MergeSort.frame.dispose();
+                        			MergeSort.ArrayforSort = null;
+                            	}  catch( Exception ex) {
+                            		System.out.println("");
+                            	}
                       KnownDiseaseActionPerformed(evt);
                   }
 
@@ -1199,11 +1528,15 @@ public static JMenuBar createMenuBar() {
                 if (threadStat == false) {
                     PredClinicalActionPerformed(evt);
                         } else {
-                    threadExecutor.shutdownNow();
-                  //  heapSortAlgorithm.frame.dispose();
-                  //  heapSortAlgorithm.ArrayforSort = null;
-                      MergeSort.frame.dispose();
-                      MergeSort.ArrayforSort = null;
+                        	try {
+		                    threadExecutor.shutdownNow();
+		                  //  heapSortAlgorithm.frame.dispose();
+		                  //  heapSortAlgorithm.ArrayforSort = null;
+		                      MergeSort.frame.dispose();
+		                      MergeSort.ArrayforSort = null;
+                        	}  catch( Exception ex) {
+                        		System.out.println("");
+                        	}
                     PredClinicalActionPerformed(evt);
                   }
             }
@@ -1218,11 +1551,15 @@ public static JMenuBar createMenuBar() {
                 if (threadStat == false) {
                     PredResearchActionPerformed(evt);
                         } else {
-                    threadExecutor.shutdownNow();
-                 //   heapSortAlgorithm.frame.dispose();
-                 //   heapSortAlgorithm.ArrayforSort = null;
-                    MergeSort.frame.dispose();
-                    MergeSort.ArrayforSort = null;
+                        		try {
+		                    threadExecutor.shutdownNow();
+		                 //   heapSortAlgorithm.frame.dispose();
+		                 //   heapSortAlgorithm.ArrayforSort = null;
+		                    MergeSort.frame.dispose();
+		                    MergeSort.ArrayforSort = null;
+                          	}  catch( Exception ex) {
+                            		System.out.println("");
+                            	}
                     PredResearchActionPerformed(evt);
                   }
             }
@@ -1237,11 +1574,15 @@ public static JMenuBar createMenuBar() {
                 if (threadStat == false) {
                     CancerGenesActionPerformed(evt);
                         } else {
-                    threadExecutor.shutdownNow();
-                 //   heapSortAlgorithm.frame.dispose();
-                 //   heapSortAlgorithm.ArrayforSort = null;
-                    MergeSort.frame.dispose();
-                    MergeSort.ArrayforSort = null;
+                        	try {
+                        		threadExecutor.shutdownNow();
+                        		//   heapSortAlgorithm.frame.dispose();
+                        		//   heapSortAlgorithm.ArrayforSort = null;
+                        		MergeSort.frame.dispose();
+                        		MergeSort.ArrayforSort = null;
+                         }  catch( Exception ex) {
+                        		System.out.println("");
+                        	}
                     CancerGenesActionPerformed(evt);
                   }
 
@@ -1257,11 +1598,15 @@ public static JMenuBar createMenuBar() {
                 if (threadStat == false) {
                     PharmacogeneticActionPerformed(evt);
                         } else {
-                    threadExecutor.shutdownNow();
-                    //heapSortAlgorithm.frame.dispose();
-                    //heapSortAlgorithm.ArrayforSort = null;
-                    MergeSort.frame.dispose();
-                    MergeSort.ArrayforSort = null;
+                        		try {
+			                    threadExecutor.shutdownNow();
+			                    //heapSortAlgorithm.frame.dispose();
+			                    //heapSortAlgorithm.ArrayforSort = null;
+			                    MergeSort.frame.dispose();
+			                    MergeSort.ArrayforSort = null;
+                             }  catch( Exception ex) {
+                            		System.out.println("");
+                            	}
                     PharmacogeneticActionPerformed(evt);
                   }
             }
@@ -1276,11 +1621,15 @@ public static JMenuBar createMenuBar() {
                 if (threadStat == false) {
                     TruncatedVariantsActionPerformed(evt);
                         } else {
-                    threadExecutor.shutdownNow();
-                    //heapSortAlgorithm.frame.dispose();
-                    //heapSortAlgorithm.ArrayforSort = null;
-                    MergeSort.frame.dispose();
-                    MergeSort.ArrayforSort = null;
+                        		try {
+			                    threadExecutor.shutdownNow();
+			                    //heapSortAlgorithm.frame.dispose();
+			                    //heapSortAlgorithm.ArrayforSort = null;
+			                    MergeSort.frame.dispose();
+			                    MergeSort.ArrayforSort = null;
+                           	}  catch( Exception ex) {
+                            		System.out.println("");
+                            	}
                     TruncatedVariantsActionPerformed(evt);
                   }
 
@@ -1296,11 +1645,15 @@ public static JMenuBar createMenuBar() {
                 if (threadStat == false) {
                     NondbSNPActionPerformed(evt);
                         } else {
-                    threadExecutor.shutdownNow();
-         //           heapSortAlgorithm.frame.dispose();
-           //         heapSortAlgorithm.ArrayforSort = null;
-                    MergeSort.frame.dispose();
-                    MergeSort.ArrayforSort = null;
+                        	try {
+		                    threadExecutor.shutdownNow();
+		         //           heapSortAlgorithm.frame.dispose();
+		           //         heapSortAlgorithm.ArrayforSort = null;
+		                    MergeSort.frame.dispose();
+		                    MergeSort.ArrayforSort = null;
+                       	}  catch( Exception ex) {
+                        		System.out.println("");
+                        	}
                     NondbSNPActionPerformed(evt);
                   }
 
@@ -1319,11 +1672,15 @@ public static JMenuBar createMenuBar() {
                 if (threadStat == false) {
                     CodingVarFreqActionPerformed(evt);
                         } else {
-                    threadExecutor.shutdownNow();
-                    //heapSortAlgorithm.frame.dispose();
-                    //heapSortAlgorithm.ArrayforSort = null;
-                    MergeSort.frame.dispose();
-                    MergeSort.ArrayforSort = null;
+                        		try {
+			                    threadExecutor.shutdownNow();
+			                    //heapSortAlgorithm.frame.dispose();
+			                    //heapSortAlgorithm.ArrayforSort = null;
+			                    MergeSort.frame.dispose();
+			                    MergeSort.ArrayforSort = null;
+                           	}  catch( Exception ex) {
+                            		System.out.println("");
+                            	}
                     CodingVarFreqActionPerformed(evt);
                   }
             }
@@ -1341,11 +1698,15 @@ public static JMenuBar createMenuBar() {
                 if (threadStat == false) {
                     CodingVarFreqActionPerformed(evt);
                         } else {
-                    threadExecutor.shutdownNow();
-          //          heapSortAlgorithm.frame.dispose();
-            //        heapSortAlgorithm.ArrayforSort = null;
-                    MergeSort.frame.dispose();
-                    MergeSort.ArrayforSort = null;
+                        		try {
+			                    threadExecutor.shutdownNow();
+			          //          heapSortAlgorithm.frame.dispose();
+			            //        heapSortAlgorithm.ArrayforSort = null;
+			                    MergeSort.frame.dispose();
+			                    MergeSort.ArrayforSort = null;
+                           	}  catch( Exception ex) {
+                            		System.out.println("");
+                            	}
                     CodingVarFreqActionPerformed(evt);
                   }
             }
@@ -1360,11 +1721,15 @@ public static JMenuBar createMenuBar() {
                 if (threadStat == false) {
                     ChromosomePosition(evt);
                         } else {
-                    threadExecutor.shutdownNow();
-               //     heapSortAlgorithm.frame.dispose();
-               //     heapSortAlgorithm.ArrayforSort = null;
-                    MergeSort.frame.dispose();
-                    MergeSort.ArrayforSort = null;
+                        		try {
+			                    threadExecutor.shutdownNow();
+			               //     heapSortAlgorithm.frame.dispose();
+			               //     heapSortAlgorithm.ArrayforSort = null;
+			                    MergeSort.frame.dispose();
+			                    MergeSort.ArrayforSort = null;
+                           	}  catch( Exception ex) {
+                            		System.out.println("");
+                            	}
                     ChromosomePosition(evt);
                   }
 
@@ -1380,11 +1745,15 @@ public static JMenuBar createMenuBar() {
                 if (threadStat == false) {               
                     IDIOM(evt);
                         } else {
-                    threadExecutor.shutdownNow();
-            //        heapSortAlgorithm.frame.dispose();
-             //       heapSortAlgorithm.ArrayforSort = null;
-                    MergeSort.frame.dispose();
-                    MergeSort.ArrayforSort = null;
+                        		try {
+		                        		threadExecutor.shutdownNow();
+		            //        heapSortAlgorithm.frame.dispose();
+		             //       heapSortAlgorithm.ArrayforSort = null;
+		                  MergeSort.frame.dispose();
+		                   MergeSort.ArrayforSort = null;
+                          	}  catch( Exception ex) {
+                            		System.out.println("");
+                            	}
                     IDIOM(evt);
                   }
 
@@ -1609,7 +1978,11 @@ if (FilterFunctions.currentArray > 0) {
 
 public static void OpenVCFActionPerformed(java.awt.event.ActionEvent evt){
        OpenVCF nt = new OpenVCF();
-       nt.openFile();
+       //nt.openFile();
+       threadExecutor = Executors.newFixedThreadPool(1);
+       threadStat = true;
+       threadExecutor.execute(nt);
+       threadExecutor.shutdown();
 
 }
 

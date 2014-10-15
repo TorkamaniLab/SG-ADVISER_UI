@@ -108,7 +108,7 @@ public class CnvViewerInterface extends javax.swing.JFrame
 								org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
 								org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
 								Short.MAX_VALUE).addContainerGap()));
-		layout.setVerticalGroup(layout.createParallelGroup(
+				layout.setVerticalGroup(layout.createParallelGroup(
 				org.jdesktop.layout.GroupLayout.LEADING).add(
 				org.jdesktop.layout.GroupLayout.TRAILING, jPanel1,
 				org.jdesktop.layout.GroupLayout.DEFAULT_SIZE,
@@ -635,7 +635,6 @@ public class CnvViewerInterface extends javax.swing.JFrame
 	public void OpenActionPerformed(java.awt.event.ActionEvent evt)
 	{
 
-		// Prefilter();
 		OpenFile();
 
 	}

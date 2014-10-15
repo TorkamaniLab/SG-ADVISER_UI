@@ -4,6 +4,8 @@
  */
 package ScrippsGenomeAdviserUI;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,18 +17,22 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JProgressBar;
+import javax.swing.border.Border;
 
 import ScrippsGenomeAdviserUI.ShowTable;
 
 
-public class OpenVCF {
+public class OpenVCF implements Runnable {
     public static javax.swing.JFileChooser fileChooser;
     public static Interface VCFfiftyLines;
     public static File file;
     //what line should the comparison start
     private int startCompare = 0;
-    //how many lines where cmpared        
+    //how many lines were compared        
     private int compareCounter = 0;
     //is there VCF data available
     public int VCFAvailable = 0;
@@ -34,12 +40,27 @@ public class OpenVCF {
     public int VCFnotFound = 0;
     public ArrayList mainArrayNotFound = new ArrayList();
     public ArrayList<LostVCF> VCFobjectsArray = new ArrayList<LostVCF>();
-    
     public static String[] importedGenotypes;
     public int numberGeno = 0;
     
+    //Progress Bar
+	public static JFrame frame;
+	public static Container content;
+	public static JProgressBar progressBar;
+	public static Border border;
+	public static int b;
+	
     public OpenVCF(){
         fileChooser = new javax.swing.JFileChooser();
+        
+		frame = new JFrame("Loading genotypes");
+		content = frame.getContentPane();
+		progressBar = new JProgressBar();
+		border = BorderFactory.createTitledBorder("Loading VCF");
+		progressBar.setBorder(border);
+		content.add(progressBar, BorderLayout.NORTH);
+		frame.setSize(300, 100);
+		b = 0;
     }
      
 public void openFile() {
@@ -74,8 +95,7 @@ public void openFile() {
                  //      vcfCount = vcfCount + 1;
                       // System.out.println("first lines");
             
-                    }
-                   
+                    }               
                    else if (line.startsWith("#", 0)) {
                        header = line.replace("#", "");
                        System.out.println("header");
@@ -91,10 +111,17 @@ public void openFile() {
         
         
         //for testing purposes, how many lines were skiped?
-                    int skipLine = 0;
+         int skipLine = 0;
+ 		// progress bar calculations
+
+ 		int linesLeft =  ReadFile.arrayOfLines.size();
+ 		int threePerc = linesLeft / 100 * 3;
+ 		if (threePerc < 1)
+ 		{
+ 			threePerc = 1;
+ 		}
         for (int in=0; in< ReadFile.arrayOfLines.size(); in++) {
                     
-             
                     String n =null;             
                     n = bReader.readLine();
                     if (n == null){
@@ -106,9 +133,20 @@ public void openFile() {
                           DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                           Calendar cal = Calendar.getInstance();
                           System.out.println(dateFormat.format(cal.getTime()));
+                          
                     }
-                        datacount++;
-
+                    
+                    datacount++;
+        				
+        			// check the percentage, if true increment the progress bar
+        			if ((datacount % threePerc) == 0)
+        			{
+        				frame.setVisible(true);
+        				b = b + 3;
+        				progressBar.setValue(b);
+        				progressBar.setStringPainted(true);
+        			}
+                    
                     String[] lin = n.split("\t");
                     //Extract chr from vcf
                     String chr = lin[0].replace("chr", "");
@@ -157,7 +195,7 @@ public void openFile() {
                         if (ti != lin.length - 1) {
                             importedGenotypes = importedGenotypes + a[0] + "\t";
                         } else {
-                        importedGenotypes = importedGenotypes + a[0]; 
+                        		importedGenotypes = importedGenotypes + a[0]; 
                         }
                     } 
                     
@@ -167,22 +205,21 @@ public void openFile() {
                     String variation = lin[4];
                     String[] variat = null;
                     //for the coma separated instances 
-                    int attension = 0;
+                    int attencion = 0;
                     if (variation.contains(",")) {
-                        attension =1;
+                        attencion =1;
                         variat =  variation.split(",");
                         //variat.
                     }
                     
-                    if (attension == 1){
-                    for (int v=0; v<variat.length; v++) {
-                    
-                   String var = variat[v];
-                   vcfTransform(chrom, ref, var, begin, importedGenotypes, NAgen, lin);
-            }  
+                    if (attencion == 1){
+                    		for (int v=0; v<variat.length; v++) {
+                    			String var = variat[v];
+                    			vcfTransform(chrom, ref, var, begin, importedGenotypes, NAgen, lin);
+                    		}  
                     } else {
-                    String var = variation;
-                    vcfTransform(chrom, ref, var, begin, importedGenotypes, NAgen, lin);
+                    			String var = variation;
+                    			vcfTransform(chrom, ref, var, begin, importedGenotypes, NAgen, lin);
                     }
                     
         }
@@ -192,10 +229,10 @@ public void openFile() {
    //     System.out.println("Parsing Error: " + parsingError);
    //     System.out.println("VCF not found " + VCFnotFound );
         if (VCFnotFound > 1000) {
-            System.out.println("Number of missing variants or variants parsed wrondg is " + VCFnotFound + " Please make sure the annotation file is sorted by chromosome!");
+            System.out.println("Number of missing variants or variants parsed wrong is " + VCFnotFound + " Please make sure the annotation file is sorted by chromosome!");
         } else {
-        System.out.println("Searching for missing variants");
-        missingVariants();
+        		System.out.println("Searching for missing variants");
+        		missingVariants();
         }
         
     //Print something
@@ -209,7 +246,9 @@ public void openFile() {
   
     for (int i=0; i< end; i++){
                 TempArray.add(ReadFile.arrayOfLines.get(i));
-            }            
+            } 
+			
+    			frame.dispose();
             ShowTable.frame.dispose();
             ShowTable.tableStatus = -1;
             //adding the extra columns columns
@@ -228,9 +267,7 @@ public void openFile() {
              * Adding this version of the array with the vcf to the arrayofArrays
              * 
              */
-            
-            
-         
+           
             FilterFunctions.filterName.add("main array with genotypes");
             //change the count of current array
             FilterFunctions.currentArray = FilterFunctions.currentArray + 1;
@@ -375,8 +412,7 @@ public void vcfTransform(int chrom, String ref, String var, int begin, String im
                        varType = "delins";
                        end = begin + ref.length();
                    }
-                   
-           
+                        
                  compare(chrom, begin, end, varType, ref, var, importedGenotypes, NAGen, lin) ;    
 }
 
@@ -472,7 +508,7 @@ public void compare(int chrom, int begin, int end, String varType, String ref, S
                                   String newLine = NAgen + "\t" + "N/A" + originalLine.substring(3);
                                   ReadFile.arrayOfLines.get(i).fileRow = newLine;
                                   /*
-                                   * Need to store this in an ray of not found
+                                   * Need to store this in an array of not found
                                    */
                             //      System.out.println("original line: " + spLines[4] + "\t" + spLines[5] + "\t" + spLines[6] + "\t" + spLines[7]);
                              //     System.out.println("parsed line: " + begin + "\t"+ end+ "\t" + varType + "\t" + ref + "\t" + var);
@@ -507,17 +543,13 @@ public void compare(int chrom, int begin, int end, String varType, String ref, S
                                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                                Calendar cal = Calendar.getInstance();
                                System.out.println(dateFormat.format(cal.getTime()));
-                             //  perc2 = perc2 + perc;
-                              // int b = (int) perc2;  
-                              //  progressBar.setValue(b);
-                             //  progressBar.setStringPainted(true);
+
                            } 
                                          //add the imported genotype index to the first position of arrayOfLines
                                         String info = extractINFO(varType, lin[7]);
                                         String newLine = importedGenotypes + "\t" + lin[5].concat("~").concat(lin[6]).concat(info) + originalLine.substring(3);
                                         ReadFile.arrayOfLines.get(i).fileRow = newLine;
                                         startCompare = i-runSkip-1;
-                                    //    startCompare = i-runSkip;
                                         
                                  
                                             break;
@@ -532,16 +564,7 @@ public void compare(int chrom, int begin, int end, String varType, String ref, S
                                  
                                  }
                             }
-                            //added oct 14
-                        /*     else {
 
-                              LostVCF ob1 = new LostVCF(chrom, begin,  end, varType, ref,  var, importedGenotypes, NAgen, lin); 
-                             VCFobjectsArray.add(ob1);
-                             VCFnotFound++;
-                             startCompare = i-runSkip-1;
-                             break;  
-                             }
-                            */
                             }else {  
 
                             
@@ -552,7 +575,6 @@ public void compare(int chrom, int begin, int end, String varType, String ref, S
                              VCFobjectsArray.add(ob1);
                              VCFnotFound++;
                              startCompare = i-runSkip-1;
-                           //  startCompare = i-runSkip;
                              break;
                             }                          
                         } }else {break;}
@@ -610,32 +632,25 @@ public void missingVariants() throws IOException{
      FileWriter fstreamTwo = new FileWriter("ArrayNotFound.txt");
      BufferedWriter out2 = new BufferedWriter(fstreamTwo);
     */ 
- //   int notFound = 0;
     int found = 0;
     
     System.out.println("Not found " + VCFobjectsArray.size());
     for (int i = 0; i < VCFobjectsArray.size(); i++) {
         LostVCF ob1 = VCFobjectsArray.get(i);
-     //   System.out.println(Integer.toString(ob1.chr) + "\t" + Integer.toString(ob1.begin) + "\t" + Integer.toString(ob1.end) + "\t" + ob1.Vartype 
-        //       + "\t" + ob1.ref + "\t" + ob1.var + "\n");       
-
         for (int j = 0; j < mainArrayNotFound.size(); j++) {
-            //extract the number of line then etract that line from arrayOfLines
+                //extract the number of line then etract that line from arrayOfLines
                  String iter = mainArrayNotFound.get(j).toString();
                  int s = Integer.parseInt(iter);
                 
                  String originalLine;
                  if (s <ReadFile.arrayOfLines.size()) {
                  originalLine = ReadFile.arrayOfLines.get(s).fileRow;
-                 // System.out.println("Main array" + originalLine);
                  } else {
                      break;
                  }
                  //make sure this line was not compared yet 
                  String[] spLines = originalLine.split("\t");
-                 //
                  String origChrom = spLines[numberGeno+3];
-           //      System.out.println("Hypothetical original chrom " + origChrom);
                  String m = origChrom.replace("chr", "");
                      if (m.equals("X")) {
                             m = "100";
@@ -650,13 +665,8 @@ public void missingVariants() throws IOException{
                             && ob1.Vartype.equals(spLines[numberGeno + 6])  && ob1.ref.equals(spLines[numberGeno + 7]) && ob1.var.equals(spLines[numberGeno + 8])) {
                                         found++;
                                         String info = extractINFO(ob1.Vartype, ob1.lin[7]);
-                                      //  System.out.println(originalLine);
-                                       //originalLine.substring(ob1.beginLeng)- Extract and change the begining of the line
-                                     //   String newLine = ob1.importedGenotypes + "\t" + ob1.lin[5].concat(info) + originalLine.substring(ob1.beginLeng);
                                         String newLine = ob1.importedGenotypes + "\t" + ob1.lin[5].concat("~").concat(ob1.lin[6]).concat(info) + originalLine.substring(ob1.beginLeng);
-                                        //    System.out.println(newLine);
                                         ReadFile.arrayOfLines.get(s).fileRow = newLine;
-                                      //  System.out.print("found!");
                                         break;
                         
                     }
@@ -664,10 +674,12 @@ public void missingVariants() throws IOException{
         }
     }
     
-    System.out.println("Number of variants not found: " + (VCFnotFound - found));
-    
-// out.close();   
+    //System.out.println("Number of variants not found: " + (VCFnotFound - found));
 }
-
+	@Override
+	public void run()
+	{
+		openFile();
+	}
 }
 

@@ -63,6 +63,8 @@ import javax.swing.table.TableColumn;
 
 import org.scripps.cnvViewer.CnvViewerInterface;
 
+import ScrippsGenomeAdviserUI.OpenVCF;
+
 //import ScrippsGenomeAdviserUI.MergeSort;
 
 /**
@@ -270,12 +272,12 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 
 		Object[][] dataFilter;
 		dataFilter = new Object[counter][columns.length];
-		System.out.println("into2DArrayFilterData");
+		//System.out.println("into2DArrayFilterData");
 		
 		for (int j = 0; j < counter; j++)
 		{
 			filterCounter++;
-			System.out.println("Counter: " + counter + "::columns.length: " + columns.length);
+			//System.out.println("Counter: " + counter + "::columns.length: " + columns.length);
 			String lines = prefilteredList.get(j).fileRow;
 			String[] lineAsArray = lines.split("\t");
 			int lengthOfLine = lineAsArray.length;
@@ -1155,8 +1157,8 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		JMenuItem exit = new JMenuItem("Exit Application");
 		// JMenuItem exitFile = new JMenuItem("Close File");
 		// JMenuItem openNew = new JMenuItem("Upload new file");
-		JMenuItem openCG = new JMenuItem(
-				"Load & compare Complete Genomics file");
+		JMenuItem openVCF = new JMenuItem(
+				"Load genotypes from VCF file");
 		JMenuItem sort = new JMenuItem("Sort");
 		// JMenuItem filter = new JMenuItem("Filter");
 		JMenuItem advanceFilter = new JMenuItem("Advance filter");
@@ -1217,7 +1219,7 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		UndoData.add(previousFilter);
 		UndoData.add(undo);
 		file.add(exit);
-		//file.add(openCG);
+		file.add(openVCF);
 		data.add(sort);
 		help.add(helpMe);
 		save.add(saveAs);
@@ -1238,25 +1240,19 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 
 		});
 
-		/*
-		openCG.addActionListener(new java.awt.event.ActionListener()
+		
+		openVCF.addActionListener(new java.awt.event.ActionListener()
 		{
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt)
 			{
-				try
-				{
-					OpenCGActionPerformed(evt);
-				} catch (IOException ex)
-				{
-					Logger.getLogger(CnvShowTable.class.getName()).log(
-							Level.SEVERE, null, ex);
-				}
+	
+					OpenVCFActionPerformed(evt);
 
 			}
 
 		});
-		*/
+		
 		
 		previousFilter.addActionListener(new java.awt.event.ActionListener()
 		{
@@ -1835,6 +1831,11 @@ public class CnvShowTable extends javax.swing.JFrame implements Runnable
 		threadExecutor.shutdown();
 	}
 
+	public static void OpenVCFActionPerformed(java.awt.event.ActionEvent evt){
+	       CNVOpenVCF nt = new CNVOpenVCF();
+	       nt.openFile();
+
+	}
 	// Filter by Coding_Variants. If exists coding_variants -. check Splice
 	// Variants. Print existing coding and splice variants.
 

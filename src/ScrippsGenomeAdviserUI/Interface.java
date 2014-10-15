@@ -32,6 +32,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 import org.scripps.cnvViewer.CnvViewerInterface;
+import org.scripps.utils.CnvHeader;
 
 public class Interface extends javax.swing.JFrame {
     

@@ -62,8 +62,6 @@ public class FilterFunctions implements Runnable
 		frame = new JFrame("File filtering");
 		content = frame.getContentPane();
 		progressBar = new JProgressBar();
-		// border = BorderFactory.createTitledBorder("Entire file filtering by "
-		// + s);
 		border = BorderFactory.createTitledBorder(s);
 		progressBar.setBorder(border);
 		content.add(progressBar, BorderLayout.NORTH);
@@ -453,13 +451,13 @@ public class FilterFunctions implements Runnable
 		System.out.println("The size of the main array is: "
 				+ TempArrayOne.size());
 		int end = TempArrayOne.size();
-		// find which is the column named ACMG_Clinical...
+		// find which is the column named ADVISER_Clinical...
 		for (int i = 0; i < ShowTable.columnNames.length; i++)
 		{
-			if (ShowTable.columnNames[i].contains("ACMG_Score"))
+			if (ShowTable.columnNames[i].contains("ADVISER_Score"))
 			{
-				// System.out.println("We will be selecting by coulmn: ");
-				// System.out.println(columnNames[i]);
+				System.out.println("We will be selecting by coulmn: ");
+			    System.out.println(ShowTable.columnNames[i]);
 				colForSort = i;
 			}
 		}
@@ -487,15 +485,19 @@ public class FilterFunctions implements Runnable
 
 			String line = TempArrayOne.get(i).fileRow;
 			String[] l = line.split("\t");
-			String s = l[colForSort];
-			String[] g = s.split("~");
-			if (g[0].equals("1"))
-			{
-				counter++;
-				ShowTable.FilteredArray.add(TempArrayOne.get(i));
-
+			//System.out.println("Lenght of the line is: " + Integer.toString(l.length));
+			try {
+				String s = l[colForSort];
+				String[] g = s.split("~");
+				if (g[0].equals("1"))
+				{
+					counter++;
+					ShowTable.FilteredArray.add(TempArrayOne.get(i));
+	
+				}
+			} catch(Exception ex) {
+				
 			}
-
 		}
 
 		if (counter > 1000)
@@ -543,7 +545,7 @@ public class FilterFunctions implements Runnable
 		}
 		SaveProgress pr = new SaveProgress();
 
-		// find which is the column named ACMG_Clinical...
+		// find which is the column named ADVISER_Clinical...
 		for (int i = 0; i < ShowTable.columnNames.length; i++)
 		{
 			if (ShowTable.columnNames[i].contains("ADVISER_Score_Clinical"))
@@ -637,7 +639,7 @@ public class FilterFunctions implements Runnable
 		}
 		SaveProgress pr = new SaveProgress();
 
-		// find which is the column named ACMG_Clinical...
+		// find which is the column named ADVISER_Clinical...
 		for (int i = 0; i < ShowTable.columnNames.length; i++)
 		{
 			if (ShowTable.columnNames[i].contains("ADVISER_Score_Research"))
@@ -941,7 +943,6 @@ public class FilterFunctions implements Runnable
 				+ TempArrayOne.size());
 		// the end of for loop iteration
 		int end = TempArrayOne.size();
-		// find which is the column named ACMG_Clinical...
 		for (int i = 0; i < ShowTable.columnNames.length; i++)
 		{
 			if (ShowTable.columnNames[i].contains("PharmGKB"))
